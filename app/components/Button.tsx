@@ -1,0 +1,75 @@
+'use client';
+
+import { IconType } from "react-icons";
+
+interface ButtonProps {
+  label: string;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
+  outline?: boolean;
+  small?: boolean;
+  icon?: IconType;
+  rounded?: boolean;
+  customBG?: boolean;
+  classNamePassedDown?:any;
+}
+
+const Button: React.FC<ButtonProps> = ({ 
+  label, 
+  onClick, 
+  disabled, 
+  outline,
+  small,
+  icon: Icon,
+  rounded,
+  customBG,
+  classNamePassedDown
+}) => {
+
+  const baseClassNames = `
+  relative
+  disabled:opacity-70
+  disabled:cursor-not-allowed
+  hover:opacity-80
+  transition
+
+  
+
+  ${rounded ? 'rounded-full' : 'rounded-lg'}
+  ${customBG ? 'bg-blue-400' : 'bg-customGreen'}
+  ${customBG ? 'border-blue-400' : 'border-customGreen'}
+  ${outline ? 'text-black' : 'text-white'}
+  ${small ? 'text-sm' : 'text-md'}
+  ${small ? 'py-1' : 'py-3'}
+  ${small ? 'font-light' : 'font-semibold'}
+  ${small ? 'border-[1px]' : 'border-2'}
+`;
+
+// ${outline ? 'bg-white' : 'bg-customGreen'}
+// ${outline ? 'border-black' : 'border-customGreen'}
+
+  const combinedClassNames = classNamePassedDown ? `${baseClassNames} ${classNamePassedDown}` : baseClassNames;
+
+
+  return ( 
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      className={combinedClassNames}
+    >
+      {Icon && (
+        <Icon
+          size={24}
+          className="
+            absolute
+            left-4
+            top-3
+          "
+        />
+      )}
+      {label}
+    </button>
+   );
+}
+ 
+export default Button;
