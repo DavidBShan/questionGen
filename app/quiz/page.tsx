@@ -1,0 +1,101 @@
+'use client'
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import ChatWidget from "../components/ChatWidget";
+
+const QuizPage: React.FC = () => {
+  const router = useRouter();
+  const [quizData, setQuizData] = useState<any[]>([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [score, setScore] = useState(0);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+
+  useEffect(() => {
+    async function fetchQuizData() {
+      try {
+        const response = await fetch("../../uploads/questions.json");
+        const data = await response.json();
+        setQuizData(data);
+      } catch (error) {
+        console.error("Error loading quiz data:", error);
+      }
+    }
+    fetchQuizData();
+  }, []);
+
+  const handleOptionSelect = (option: string) => {
+    setSelectedOption(option);
+  };
+
+  const handleNextQuestion = () => {
+    if (selectedOption === quizData[currentQuestion].correctAnswer) {
+      setScore(score + 1);
+    }
+
+    // Move to the next question or finish the quiz
+    if (currentQuestion < quizData.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setSelectedOption(null);
+    } else {
+      setQuizCompleted(true);
+    }
+  };
+
+  return (
+    <div className="flex h-screen">
+      <div className="w-3/4 p-4 overflow-y-auto">
+        {quizCompleted ? (
+          <div>
+            <h1 className="text-3xl text-center">Quiz Completed</h1>
+            <p className="text-xl text-center">
+              Your score: <span className="text-green-600">{score}</span> out of{" "}
+              <span className="text-blue-600">{quizData.length}</span>
+            </p>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+              onClick={() => {
+                router.push(`/pdfUpload`);
+              }}
+            >
+              Generate another quiz!
+            </button>
+          </div>
+        ) : (
+          <div>
+            <h1 className="text-3xl text-center">Quiz</h1>
+            <p className="text-xl text-center">
+              Question <span className="text-blue-600">{currentQuestion + 1}</span> of{" "}
+              <span className="text-blue-600">{quizData.length}</span>
+            </p>
+            <h3 className="text-xl">{quizData[currentQuestion].question}</h3>
+            <ul>
+              {quizData[currentQuestion].options.map((option: string, index: number) => (
+                <li
+                  key={index}
+                  onClick={() => handleOptionSelect(option)}
+                  className={`cursor-pointer hover:bg-gray-200 p-2 rounded ${
+                    selectedOption === option ? "bg-blue-300" : ""
+                  }`}
+                >
+                  {option}
+                </li>
+              ))}
+            </ul>
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+              onClick={handleNextQuestion}
+            >
+              Next
+            </button>
+          </div>
+        )}
+      </div>
+      <div className="w-1/4 p-4 overflow-y-auto">
+        <ChatWidget />
+      </div>
+    </div>
+  );
+};
+
+export default QuizPage;

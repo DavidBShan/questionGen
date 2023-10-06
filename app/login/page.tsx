@@ -33,7 +33,7 @@ export default function Home() {
   useEffect(() => {
     // Check if the user is authenticated
     if (session?.data?.user) {
-      router.push("/corrector");
+      router.push("/pdfUpload");
     }
   }, [session]);
 
@@ -81,24 +81,8 @@ export default function Home() {
 
         {loading? null : user ? (
           <div className="grid flex flex-col gap-4 ">
-
-            {/* {user.name? <div className="text-center text-3xl font-bold">Welcome {user.name}!</div>:null} */}
-            
-            <div className="flex flex-col gap-4 items-center justify-center">
-              
+            <div className="flex flex-col gap-4 items-center justify-center">          
               <Loader/>
-              {/* <BigButton
-                label="I'm Ready"
-                customBG
-                onClick={() => { router.push(`/corrector`) }}
-                classNamePassedDown="md:w-[60%] px-20 text-xl md:text-3xl"
-              />
-              <BigButton
-                label="Sign out"
-                onClick={() => signOut()}
-                customBG
-                classNamePassedDown="md:w-[60%] px-20 text-xl md:text-3xl"
-              /> */}
             </div>
           </div>
         ) : (

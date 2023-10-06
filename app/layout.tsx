@@ -9,8 +9,8 @@ import ToasterProvider from './providers/ToasterProvider';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Feedack',
-  description: 'Gives you feedback on your writing!',
+  title: 'Quiz Generator',
+  description: 'Generate questions based on PDF!',
 }
 
 export default async function RootLayout({

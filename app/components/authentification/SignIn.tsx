@@ -50,21 +50,13 @@ const SignIn: React.FC<SignInProps> = ({
     const newDisplayName = concatenateNames();
     setDisplayName(newDisplayName);
   }, [firstName, lastName, setDisplayName]);
-
-  // () => signIn('credentials', {email, password, redirect: false, callbackUrl: '/corrector'})
-
-  const onSubmit: SubmitHandler<FieldValues> = 
-  (data) => {
-    // setIsLoading(true);
-
-    signIn('credentials', {email, password, redirect: false , callbackUrl: '/corrector'})
+  
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    signIn('credentials', {email, password, redirect: false , callbackUrl: '/pdfUpload'})
     .then((callback) => {
-      // setIsLoading(false);
-
       if (callback?.ok) {
         toast.success('Logged in');
-        router.push(`/corrector`)
-        // loginModal.onClose();
+        router.push(`/pdfUpload`);
       }
       
       if (callback?.error) {

@@ -1,6 +1,4 @@
 'use client';
-import Image from 'next/image'
-import Corrector from './corrector/page'
 import Intro from './intro/page'
 
 import { signIn, signOut, useSession } from 'next-auth/react';

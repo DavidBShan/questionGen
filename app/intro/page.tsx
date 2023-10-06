@@ -14,18 +14,11 @@ return (
             <h1 className="text-xl md:text-3xl lg:text-5xl font-bold">
                 Your new future starts now.
             </h1>
-            <h3 className="text-lg md:text-xl lg:text-3xl">
-                Just upload your first piece of writing!    
-            </h3> 
         </div>   
         
         <Image src={"/intro.png"} height={3412/4} width={2376/4} alt=""/>
 
         <div className="text-center space-y-3">
-            <h3 className="text-lg md:text-xl lg:text-3xl font-medium">
-                It&apos;s time to write more beautifully than ever.
-            </h3>
-
             <BigButton
             label="Become #1"
             onClick={()=>{router.push(`/login`)}}
