@@ -25,7 +25,7 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
       const updatedText = pdfParseData.txt;
       const writeResponse = await fetch('/api/writeQuestion', {
         method: 'POST',
-        body: JSON.stringify( updatedText )
+        body: JSON.stringify( {text:updatedText} )
       });
     } catch (error) {
       console.error(error);

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { handleFileUpload } from '../../util/handleUpload';
+import emailjs from 'emailjs-com'
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -13,6 +14,13 @@ const Home: React.FC = () => {
   const [feedback, setFeedback] = useState('');
 
   const feedbackSubmit = async () => {
+    var templateParams = {
+      message: feedback
+    }
+    emailjs.send("service_q1ukn0j","template_dl6v2ji", templateParams, 'SQQyavWAI1jQ3uKJV')
+    .then(function(response) {
+
+    });
     setFeedback('');
     setState('submitted');
   };

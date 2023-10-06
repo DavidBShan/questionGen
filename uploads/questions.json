@@ -1,0 +1,102 @@
+[
+  {
+    "question": "What does the term 'dystopia' mean?",
+    "options": [
+      "A synonym for 'post-apocalyptic'",
+      "A bleak or darkly imagined future",
+      "An unfavourable society to live in",
+      "A society that is actively working against the protagonist's aims and desires"
+    ],
+    "correctAnswer": "An unfavourable society to live in"
+  },
+  {
+    "question": "What is typically the antagonist in a dystopian story?",
+    "options": [
+      "The protagonist",
+      "The government",
+      "The loss of civil liberties",
+      "Surveillance"
+    ],
+    "correctAnswer": "The government"
+  },
+  {
+    "question": "What are some causes of untenable living conditions in a dystopian society?",
+    "options": [
+      "Banning of books",
+      "Controlled birth rate",
+      "Propaganda",
+      "Indoctrination"
+    ],
+    "correctAnswer": "Controlled birth rate"
+  },
+  {
+    "question": "What determines whether a society is perceived as a dystopia?",
+    "options": [
+      "Point of view",
+      "Surveillance",
+      "Civil liberties",
+      "Reproductive freedom"
+    ],
+    "correctAnswer": "Point of view"
+  },
+  {
+    "question": "What is the paradoxical situation that can arise in a dystopia?",
+    "options": [
+      "The loss of A is truly felt",
+      "Living in a dystopia without knowing it",
+      "Society gives up A in exchange for B",
+      "Utopias being depicted as dystopias"
+    ],
+    "correctAnswer": "Society gives up A in exchange for B"
+  },
+  {
+    "question": "What are some elements of a dystopia?",
+    "options": [
+      "A god-like ruling figure",
+      "Mass hysteria as a form of control",
+      "Recreation of history",
+      "All of the above"
+    ],
+    "correctAnswer": "All of the above"
+  },
+  {
+    "question": "What is one purpose of dystopian fiction?",
+    "options": [
+      "To emphasize political or societal points",
+      "To entertain readers with a bleak future",
+      "To provide cautionary tales",
+      "To promote mass hysteria"
+    ],
+    "correctAnswer": "To provide cautionary tales"
+  },
+  {
+    "question": "What do the best dystopias explore?",
+    "options": [
+      "Deeper meanings of civilization",
+      "Government propaganda",
+      "Indoctrination techniques",
+      "Loss of civil liberties"
+    ],
+    "correctAnswer": "Deeper meanings of civilization"
+  },
+  {
+    "question": "What can be a form of control in a dystopian society?",
+    "options": [
+      "Paranoia",
+      "Societal organization",
+      "Centralized power",
+      "All of the above"
+    ],
+    "correctAnswer": "All of the above"
+  },
+  {
+    "question": "What is an essential aspect of dystopian society?",
+    "options": [
+      "Idea of humanity",
+      "Reproductive freedom",
+      "Control over historical records",
+      "Loss of civil liberties"
+    ],
+    "correctAnswer": "Control over historical records"
+  }
+]

@@ -2,28 +2,14 @@
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import ChatWidget from "../components/ChatWidget";
+import quizData from '../../uploads/questions.json'
 
 const QuizPage: React.FC = () => {
   const router = useRouter();
-  const [quizData, setQuizData] = useState<any[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
-
-  useEffect(() => {
-    async function fetchQuizData() {
-      try {
-        const response = await fetch("../../uploads/questions.json");
-        const data = await response.json();
-        setQuizData(data);
-      } catch (error) {
-        console.error("Error loading quiz data:", error);
-      }
-    }
-    fetchQuizData();
-  }, []);
-
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
   };
@@ -32,8 +18,6 @@ const QuizPage: React.FC = () => {
     if (selectedOption === quizData[currentQuestion].correctAnswer) {
       setScore(score + 1);
     }
-
-    // Move to the next question or finish the quiz
     if (currentQuestion < quizData.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedOption(null);

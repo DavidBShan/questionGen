@@ -16,16 +16,12 @@ async function readPDF(pdfPath:any) {
 
 export default async function handler(req:any, res:any) {
     try {
-        console.log("enter 2");
         const txt = await readPDF("uploads/uploadedfile");
 
-        // Write the text data to a JSON file
         const jsonData = { text: txt };
         const jsonFileName = "uploads/output.json";
 
         fs.writeFileSync(jsonFileName, JSON.stringify(jsonData, null, 2));
-        
-        console.log("Text data has been written to JSON file:", jsonFileName);
         
         res.status(200).json({ txt });
     } catch (error) {

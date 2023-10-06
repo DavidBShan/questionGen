@@ -11,7 +11,6 @@ export const config = {
 export default async function handler(req:any, res:any) {
   try {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log("enter 1");
     const form = new formidable.IncomingForm();
     form.uploadDir = path.join(process.cwd(), 'uploads'); 
     form.parse(req, async (err:any, fields:any, files:any) => {

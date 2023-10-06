@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import fs from 'fs';
 
-async function callApi(courseContent:any, question:any) {
+async function callApi(question:any) {
     try {
       const response = await fetch("/api/answerQuestion", {
         method: "POST",
@@ -9,16 +8,13 @@ async function callApi(courseContent:any, question:any) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          courseContent: courseContent,
           question: question,
         }),
       });
       
       if (response.ok) {
         const data = await response.json();
-        // Handle the API response data as needed
-        console.log("API Response:", data);
-        return data;
+        return data.message;
       } else {
         console.error("API request failed with status:", response.status);
       }
@@ -31,13 +27,6 @@ const ChatWidget = () => {
     const [messages, setMessages] = useState([
         { role: "system", id: 1, content: 'Hi there, how can I help you?'}
       ]);
-      let pdfText = '';
-      try {
-        const jsonData = fs.readFileSync("../../uploads/output.json", 'utf8');
-        pdfText= JSON.parse(jsonData).text;
-    } catch (error) {
-        throw error;
-    }
     
       const [newMessage, setNewMessage] = useState('');
     
@@ -53,15 +42,21 @@ const ChatWidget = () => {
           content: newMessage,
           id: messages.length + 1,
         };
+        const thinkingMessageObj = {
+          role: "tutor",
+          content: "AI Tutor is thinking...",
+          id: messages.length + 2,
+        };
         
-        setMessages([...messages, newMessageObj]);
-        const answer = await callApi(pdfText, newMessage);
+        setMessages([...messages, newMessageObj, thinkingMessageObj]);
+        setNewMessage('');
+        const answer = await callApi(newMessage);
         const tutorMessageObj = {
             role: "tutor",
             content: answer,
-            id: messages.length + 1,
+            id: messages.length + 2,
           };
-          setMessages([...messages, tutorMessageObj]);
+          setMessages([...messages,  newMessageObj, tutorMessageObj]);
         setNewMessage('');
       };
 

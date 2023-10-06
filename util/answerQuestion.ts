@@ -40,9 +40,7 @@ export const generateQuestions = async (pdfContent: any) => {
               let responseJSON:any;
               if(content!=null){
                 responseJSON= JSON.parse(content);
-                console.log(responseJSON);
               }
-      console.log(responseJSON);
   
       return responseJSON;
     } catch (err) {
