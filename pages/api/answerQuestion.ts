@@ -2,7 +2,7 @@ import pdfDoc from '../../uploads/output.json'
 import OpenAI from 'openai';
 export default async (req: any, res: any) => {
   const openai = new OpenAI({
-      apiKey: "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",
+      apiKey: "OPENAI_API_KEY",
   });
     if (req.method === 'POST') {
         try {
