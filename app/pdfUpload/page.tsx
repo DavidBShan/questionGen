@@ -1,17 +1,27 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { handleFileUpload } from '../../util/handleUpload';
-import emailjs from 'emailjs-com'
+import emailjs from 'emailjs-com';
+import { useSession } from 'next-auth/react';
+import { getDailyStreak } from '@/util/getDailyStreak';
 
 const Home: React.FC = () => {
   const router = useRouter();
   const [pdfText, setPdfText] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [dailyStreak, setDailyStreak] = useState(0);
+  const [dailyStreak, setDailyStreak] = useState("loading...");
   const [currentState, setState] = useState('nothing');
   const [feedback, setFeedback] = useState('');
+  const { data: session } = useSession();
+  const [userId, setUserId] = useState<any>(session?.user);
+
+  useEffect(() => {
+    if (userId !== undefined) {
+      getDailyStreak(userId, setDailyStreak);
+    }
+  }, [userId]);
 
   const feedbackSubmit = async () => {
     var templateParams = {
@@ -24,6 +34,11 @@ const Home: React.FC = () => {
     setFeedback('');
     setState('submitted');
   };
+
+  const handleStart = () => {
+    const userId = session?.user;
+    handleFileUpload(file, setState, setPdfText, userId, setDailyStreak)
+  }
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
@@ -84,7 +99,7 @@ const Home: React.FC = () => {
                 />
               </form>
               <button
-                onClick={()=>{handleFileUpload(file, setState, setPdfText);}}
+                onClick={handleStart}
                 className="w-full mt-4 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
               >
                 Start studying
