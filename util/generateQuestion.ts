@@ -2,7 +2,7 @@ import OpenAI from "openai";
 export const generateQuestions = async (pdfContent: any) => {
     let questionResponse: any = [];
     const openai = new OpenAI({
-        apiKey: "OPENAI_API_KEY",
+        apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
     });
     try {
       const response =  await openai.chat.completions.create({
