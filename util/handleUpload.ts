@@ -1,6 +1,14 @@
+import toast from "react-hot-toast";
 import { generateQuestions } from "./generateQuestion";
 export const handleFileUpload = async (file: File | null, setState: (state: string) => void, setPdfText: (text: string | null) => void) => {
-    if (!file) return;
+    if (!file) 
+    {
+      toast.error("Please upload a file!");
+      return;
+    }
+
+    console.log("Handling this file: " + file.name);
+
     setState('loading');
     const formData = new FormData();
     formData.append('pdf', file);

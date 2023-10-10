@@ -14,7 +14,8 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-    
+        'aceflow-blue': '#0071FF',
+        'aceflow-blue-bg': '#DAEAFF',
         'customGreen': '#3FBF72',
         'customGreen2': '#63EB9A',
 

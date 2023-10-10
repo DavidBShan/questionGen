@@ -1,9 +1,11 @@
-'use client'
+    'use client'
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { handleFileUpload } from '../../util/handleUpload';
 import emailjs from 'emailjs-com'
+import CustomFileInput from '../components/CustomFileInput';
+
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -26,7 +28,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
+    <div className="min-h-screen flex flex-col justify-center items-center">
       {currentState === 'loading' || currentState === 'submitted' ? (
         <div className="text-center">
           <h1 className="text-3xl font-bold text-blue-500 mb-4">
@@ -64,50 +66,55 @@ const Home: React.FC = () => {
           )}
         </div>
       ) : (
-        <div className="text-center">
+        <div className="text-center ">
           {currentState === 'nothing' ? (
-            <div className="w-full max-w-md mx-auto">
-              <div className="text-3xl font-semibold mb-6">
-                Start your next study session in 60 seconds
+            <div className="w-full max-w-md mx-auto space-y-12">
+              <div>
+              <div className='font-light'>PRACTICE QUESTIONS</div>
+              <div className="text-3xl font-bold mb-6">
+                <span className="text-black">Master Anything With </span>
+                <span className="text-aceflow-blue">Unlimited Practice </span>
+                <span className="text-black">Questions</span>
               </div>
+              
               <form
                 onSubmit={(e) => e.preventDefault()}
                 encType="multipart/form-data"
+                className='rounded-3xl outline outline-blue-200 '//cursor-pointer
               >
-                <label className="block text-lg font-semibold">Upload a PDF file:</label>
-                <input
-                  type="file"
-                  name="pdf"
-                  accept=".pdf"
-                  onChange={(e: any) => setFile(e.target.files?.[0])}
-                  className="w-full mt-2 border rounded-md p-2 text-gray-800 focus:outline-none focus:border-blue-500"
-                />
+                  <CustomFileInput setFile = {setFile}/> 
               </form>
+
               <button
                 onClick={()=>{handleFileUpload(file, setState, setPdfText);}}
-                className="w-full mt-4 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                className="w-[40%] mt-4 bg-aceflow-blue font-bold text-2xl text-white py-2 rounded-xl hover:bg-blue-600"
               >
-                Start studying
+                Make Quiz
               </button>
-              <div className="text-xl font-semibold mt-6">
-                {dailyStreak.toString()}🔥
               </div>
-              <div className="text-lg text-gray-700">Your Daily Streak!</div>
-              <div className="mt-4 text-lg text-gray-700">
-                Build a habit of studying each day and watch your streak rise up!
+              
+              <div className='grid gap-2 rounded-3xl outline outline-blue-200 py-8 px-20'>
+                <div className="text-5xl text-blue-950 font-semibold">
+                  Day {dailyStreak.toString()} 🔥
+                </div>
+                <div className="text-2xl font-medium text-orange-500">Your Daily Streak</div>
+                <div className="text-md text-gray-500">
+                  Build a habit of studying each day and watch your streak rise up!
+                </div>
               </div>
+
             </div>
           ) : (
             <div className="w-full max-w-md mx-auto">
-              <div className="text-3xl font-semibold mb-6">Your quiz is ready!</div>
-              <Image src={"/loading.png"} height={3412/4} width={2376/4} alt=""/>
+              <div className="text-3xl font-bold mb-6">Your quiz is ready!</div>
+             
               <button
                 onClick={() => {
                   router.push(`/quiz`);
                 }}
-                className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+                className="w-full bg-aceflow-blue font-bold text-2xl text-white py-3 rounded-xl hover:bg-blue-600"
               >
-                Start
+                Start Challenge
               </button>
             </div>
           )}

@@ -14,6 +14,8 @@ const QuizPage: React.FC = () => {
     setSelectedOption(option);
   };
 
+  const [chatOpen, setChatOpen] = useState(true);
+
   const handleNextQuestion = () => {
     if (selectedOption === quizData[currentQuestion].correctAnswer) {
       setScore(score + 1);
@@ -28,7 +30,7 @@ const QuizPage: React.FC = () => {
 
   return (
     <div className="flex h-screen">
-      <div className="w-3/4 p-4 overflow-y-auto">
+      <div className="w-full p-4 overflow-y-auto">
         {quizCompleted ? (
           <div>
             <h1 className="text-3xl text-center">Quiz Completed</h1>
@@ -41,24 +43,24 @@ const QuizPage: React.FC = () => {
               onClick={() => {
                 router.push(`/pdfUpload`);
               }}
-            >
+            > 
               Generate another quiz!
             </button>
           </div>
         ) : (
-          <div>
+          <div className="grid items-center justify-center">
             <h1 className="text-3xl text-center">Quiz</h1>
             <p className="text-xl text-center">
               Question <span className="text-blue-600">{currentQuestion + 1}</span> of{" "}
               <span className="text-blue-600">{quizData.length}</span>
             </p>
-            <h3 className="text-xl">{quizData[currentQuestion].question}</h3>
+            <h3 className="text-3xl font-bold">{quizData[currentQuestion].question}</h3>
             <ul>
               {quizData[currentQuestion].options.map((option: string, index: number) => (
                 <li
                   key={index}
                   onClick={() => handleOptionSelect(option)}
-                  className={`cursor-pointer hover:bg-gray-200 p-2 rounded ${
+                  className={`cursor-pointer hover:bg-gray-200 p-2 rounded text-center ${
                     selectedOption === option ? "bg-blue-300" : ""
                   }`}
                 >
@@ -75,9 +77,9 @@ const QuizPage: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="w-1/4 p-4 overflow-y-auto">
+      {chatOpen && <div className="w-1/4 p-4 overflow-y-auto">
         <ChatWidget />
-      </div>
+      </div>}
     </div>
   );
 };
