@@ -61,15 +61,15 @@ const ChatWidget = () => {
       };
 
   return (
-    <div className="bg-gray-200 rounded p-4 h-full">
-      <div className="text-xl font-bold mb-4 text-center">Chat</div>
-      <div className="h-3/4 overflow-y-auto">
+    <div className="bg-blue-100 rounded-lg p-4 h-full">
+      <div className="text-2xl font-bold mb-4 text-center">Chat</div>
+      <div className="h-3/4 overflow-y-auto text-lg">
         {messages.map((message) => (
           <div key={message.id} className={`mb-4 ${message.role === "user" ? "text-right" : "text-left"}`}>
-            <div className={`text-sm font-semibold ${message.role === "user" ? "text-blue-600" : "text-green-600"}`}>
+            <div className={`text-md font-semibold ${message.role === "user" ? "text-blue-600" : "text-gray-600"}`}>
               {message.role === "user" ? "You" : "Tutor"}
             </div>
-            <div className="bg-white rounded p-2">{message.content}</div>
+            <div className="bg-white rounded-xl p-2">{message.content}</div>
           </div>
         ))}
       </div>
@@ -79,7 +79,7 @@ const ChatWidget = () => {
           placeholder="Type your message..."
           value={newMessage}
           onChange={handleInputChange}
-          className="mt-7 w-full rounded p-2 border"
+          className="mt-7 w-full rounded-xl p-2 border"
         />
         <button
           onClick={handleSendMessage}

@@ -14,7 +14,7 @@ const QuizPage: React.FC = () => {
     setSelectedOption(option);
   };
 
-  const [chatOpen, setChatOpen] = useState(true);
+  const [chatOpen, setChatOpen] = useState(false);
 
   const handleNextQuestion = () => {
     if (selectedOption === quizData[currentQuestion].correctAnswer) {
@@ -33,43 +33,85 @@ const QuizPage: React.FC = () => {
       <div className="w-full p-4 overflow-y-auto">
         {quizCompleted ? (
           <div>
-            <h1 className="text-3xl text-center">Quiz Completed</h1>
-            <p className="text-xl text-center">
-              Your score: <span className="text-green-600">{score}</span> out of{" "}
-              <span className="text-blue-600">{quizData.length}</span>
+            <h1 className="text-3xl text-center font-bold">Quiz Completed</h1>
+            <p className="text-xl text-center font-semibold">
+              Your score: <span className="text-green-400 font-semibold">{score}</span> out of{" "}
+              <span className="text-blue-400 font-semibold">{quizData.length}</span>
             </p>
+
+            <p>
+              Want to ace your next test? Keep practicing with more questions.
+            </p>
+
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
               onClick={() => {
                 router.push(`/pdfUpload`);
               }}
             > 
-              Generate another quiz!
+              Generate another quiz.
             </button>
+
+            <p className="italic font-medium">
+              Mastery is close.
+            </p>
+
           </div>
         ) : (
-          <div className="grid items-center justify-center">
-            <h1 className="text-3xl text-center">Quiz</h1>
-            <p className="text-xl text-center">
-              Question <span className="text-blue-600">{currentQuestion + 1}</span> of{" "}
-              <span className="text-blue-600">{quizData.length}</span>
-            </p>
-            <h3 className="text-3xl font-bold">{quizData[currentQuestion].question}</h3>
-            <ul>
-              {quizData[currentQuestion].options.map((option: string, index: number) => (
-                <li
-                  key={index}
-                  onClick={() => handleOptionSelect(option)}
-                  className={`cursor-pointer hover:bg-gray-200 p-2 rounded text-center ${
-                    selectedOption === option ? "bg-blue-300" : ""
-                  }`}
+          <div className="grid gap-14 items-center justify-center">
+            
+            <div className="space-y-20">
+              <div className="mt-8">
+                <h1 className="text-3xl text-center font-bold">Quiz</h1>
+                <p className="text-2xl text-center font-semibold">
+                  Question <span className="text-blue-600 font-semibold">{currentQuestion + 1}</span> of{" "}
+                  <span className="text-blue-600">{quizData.length}</span>
+                </p>
+              </div>
+              
+              <div className="grid gap-8">
+                <h3 className="text-4xl font-bold text-center">{quizData[currentQuestion].question}</h3>
+
+                <ul className="flex flex-wrap gap-6 justify-center">
+                  {quizData[currentQuestion].options.map((option: string, index: number) => (
+                    <li
+                      key={index}
+                      onClick={() => handleOptionSelect(option)}
+                      className={`
+                        flex-shrink-0 w-1/2 cursor-pointer hover:bg-gray-200 p-3 rounded-lg text-center
+                        text-2xl font-medium outline outline-2 outline-aceflow-blue ${
+                          selectedOption === option ? "bg-blue-300" : ""
+                        }`}
+                    >
+                      <span className="mr-2">{String.fromCharCode(65 + index)}.</span>{option}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            
+            {(chatOpen) ? 
+            (<div className="text-xl text-center">
+              You&apos;ve got this. <button 
+                  className='cursor font-medium text-aceflow-blue underline'
+                  onClick={()=>{setChatOpen(false)}}
                 >
-                  {option}
-                </li>
-              ))}
-            </ul>
+                  Remove AI tutor
+                </button>
+            </div>)
+            :
+            (<div className="text-xl text-center">
+              Stuck? <button 
+                  className='cursor font-medium text-aceflow-blue underline'
+                  onClick={()=>{setChatOpen(true)}}
+                >
+                  Ask your AI tutor for help
+                </button>
+            </div>)
+            }
+
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+              className="bg-blue-500 text-2xl hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg w-40 mx-auto"
               onClick={handleNextQuestion}
             >
               Next
@@ -77,7 +119,7 @@ const QuizPage: React.FC = () => {
           </div>
         )}
       </div>
-      {chatOpen && <div className="w-1/4 p-4 overflow-y-auto">
+      {!chatOpen || !quizCompleted && <div className="w-1/4 p-4 overflow-y-auto">
         <ChatWidget />
       </div>}
     </div>
