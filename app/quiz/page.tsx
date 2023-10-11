@@ -30,8 +30,8 @@ const QuizPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen">
-      <div className="w-full overflow-y-auto">
+    <div className="flex flex-col md:flex-row h-screen">
+      <div className="w-full md:overflow-y-auto no-scrollbar">
         {quizCompleted ? (
          <div className="flex flex-col items-center justify-center h-screen mx-[35%]">
          <div className="text-center">
@@ -65,19 +65,19 @@ const QuizPage: React.FC = () => {
        
        
         ) : (
-          <div className="grid gap-14 items-center justify-center">
+          <div className="grid gap-8 md:gap-14 items-center justify-center">
             
-            <div className="space-y-20">
+            <div className="space-y-10 md:space-y-20">
               <div className="mt-8">
-                <h1 className="text-3xl text-center font-bold">Quiz</h1>
-                <p className="text-2xl text-center font-semibold">
+                <h1 className="text-xl md:text-3xl text-center font-bold">Quiz</h1>
+                <p className="text-lg md:text-2xl text-center font-semibold">
                   Question <span className="text-blue-600 font-semibold">{currentQuestion + 1}</span> of{" "}
                   <span className="text-blue-600">{quizData.length}</span>
                 </p>
               </div>
               
               <div className="grid gap-8">
-                <h3 className="text-4xl font-bold text-center">{quizData[currentQuestion].question}</h3>
+                <h3 className="px-8 md:px-0 text-xl md:text-4xl  font-bold text-center">{quizData[currentQuestion].question}</h3>
 
                 <ul className="flex flex-wrap gap-6 justify-center">
                   {quizData[currentQuestion].options.map((option: string, index: number) => (
@@ -85,8 +85,12 @@ const QuizPage: React.FC = () => {
                       key={index}
                       onClick={() => handleOptionSelect(option)}
                       className={`
-                        flex-shrink-0 w-1/2 cursor-pointer hover:bg-gray-200 p-3 rounded-lg text-center
-                        text-2xl font-medium outline outline-2 outline-aceflow-blue ${
+                        flex-shrink-0 cursor-pointer hover:bg-gray-200  
+                        rounded-lg text-center
+                        p-2 md:p-3
+                        text-lg md:text-2xl md:font-medium 
+                        w-[75%] md:w-1/2
+                        outline outline-2 outline-aceflow-blue ${
                           selectedOption === option ? "bg-blue-300" : ""
                         }`}
                     >
@@ -98,7 +102,7 @@ const QuizPage: React.FC = () => {
             </div>
             
             {(chatOpen) ? 
-            (<div className="text-xl text-center">
+            (<div className="text-md md:text-xl text-center">
               You&apos;ve got this. <button 
                   className='cursor font-medium text-aceflow-blue underline'
                   onClick={()=>{setChatOpen(false)}}
@@ -107,7 +111,7 @@ const QuizPage: React.FC = () => {
                 </button>
             </div>)
             :
-            (<div className="text-xl text-center">
+            (<div className="text-md md:text-xl text-center">
               Stuck? <button 
                   className='cursor font-medium text-aceflow-blue underline'
                   onClick={()=>{setChatOpen(true)}}
@@ -118,7 +122,7 @@ const QuizPage: React.FC = () => {
             }
 
             <button
-              className="bg-blue-500 text-2xl hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg w-40 mx-auto"
+              className="bg-aceflow-blue text-lg md:text-2xl hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg w-32 md:w-40 mx-auto"
               onClick={handleNextQuestion}
             >
               Next
@@ -126,7 +130,8 @@ const QuizPage: React.FC = () => {
           </div>
         )}
       </div>
-      {!chatOpen || !quizCompleted && <div className="w-1/4 p-4 overflow-y-auto">
+
+      {!chatOpen || !quizCompleted && <div className="md:w-[45%] lg:w-[35%] xl:w-1/4 p-4 md:overflow-y-auto">
         <ChatWidget />
       </div>}
     </div>
