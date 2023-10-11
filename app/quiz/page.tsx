@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import ChatWidget from "../components/ChatWidget";
 import quizData from '../../uploads/questions.json'
+import Image from "next/image";
 
 const QuizPage: React.FC = () => {
   const router = useRouter();
@@ -30,33 +31,39 @@ const QuizPage: React.FC = () => {
 
   return (
     <div className="flex h-screen">
-      <div className="w-full p-4 overflow-y-auto">
+      <div className="w-full overflow-y-auto">
         {quizCompleted ? (
-          <div>
-            <h1 className="text-3xl text-center font-bold">Quiz Completed</h1>
-            <p className="text-xl text-center font-semibold">
-              Your score: <span className="text-green-400 font-semibold">{score}</span> out of{" "}
-              <span className="text-blue-400 font-semibold">{quizData.length}</span>
-            </p>
-
-            <p>
-              Want to ace your next test? Keep practicing with more questions.
-            </p>
-
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-              onClick={() => {
-                router.push(`/pdfUpload`);
-              }}
-            > 
-              Generate another quiz.
-            </button>
-
-            <p className="italic font-medium">
-              Mastery is close.
-            </p>
-
-          </div>
+         <div className="flex flex-col items-center justify-center h-screen mx-[35%]">
+         <div className="text-center">
+           <h1 className="text-5xl font-bold">Quiz Completed</h1>
+           <p className="text-2xl font-semibold">
+             Your score: <span className="text-green-400 font-semibold">{score}</span> out of{" "}
+             <span className="text-blue-400 font-semibold">{quizData.length}</span>
+           </p>
+         </div>
+       
+         <div className="text-center mt-20">
+           <Image src={"/arrow.svg"} height={3412 / 7} width={2376 / 7} alt="" />
+           <p className="pt-6 text-lg">Practice lets you hit your targets.</p>
+         </div>
+       
+         <div className="text-center grid gap-8 mt-8">
+           <p className="text-3xl mx-auto">Want to ace your next test? Keep practicing with more questions.</p>
+       
+           <button
+             className="bg-aceflow-blue text-2xl hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg mx-auto"
+             onClick={() => {
+               router.push(`/pdfUpload`);
+             }}
+           >
+             Generate another quiz.
+           </button>
+       
+           <p className="italic font-medium text-lg">Mastery is close.</p>
+         </div>
+       </div>
+       
+       
         ) : (
           <div className="grid gap-14 items-center justify-center">
             
