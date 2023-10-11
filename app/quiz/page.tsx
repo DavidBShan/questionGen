@@ -33,25 +33,26 @@ const QuizPage: React.FC = () => {
     <div className="flex flex-col md:flex-row h-screen">
       <div className="w-full md:overflow-y-auto no-scrollbar">
         {quizCompleted ? (
-         <div className="flex flex-col items-center justify-center h-screen mx-[35%]">
+         <div className="flex flex-col items-center justify-center gap-8 md:gap-0 h-screen mx-6 md:mx-[35%]">
          <div className="text-center">
-           <h1 className="text-5xl font-bold">Quiz Completed</h1>
-           <p className="text-2xl font-semibold">
+           <h1 className="text-3xl md:text-5xl font-bold">Quiz Completed</h1>
+           <p className="text-lg md:text-2xl font-semibold">
              Your score: <span className="text-green-400 font-semibold">{score}</span> out of{" "}
              <span className="text-blue-400 font-semibold">{quizData.length}</span>
            </p>
          </div>
        
-         <div className="text-center mt-20">
+         <div className="text-center mt-20 mx-7">
            <Image src={"/arrow.svg"} height={3412 / 7} width={2376 / 7} alt="" />
-           <p className="pt-6 text-lg">Practice lets you hit your targets.</p>
+           <p className="pt-6 text-sm md:text-lg">Practice lets you hit your targets.</p>
          </div>
        
          <div className="text-center grid gap-8 mt-8">
-           <p className="text-3xl mx-auto">Want to ace your next test? Keep practicing with more questions.</p>
+           <p className="text-xl md:text-3xl mx-auto">Want to ace your next test? Keep practicing with more questions.</p>
        
            <button
-             className="bg-aceflow-blue text-2xl hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg mx-auto"
+             className="bg-aceflow-blue text-lg md:text-2xl hover:bg-blue-700 text-white 
+             font-bold py-3 px-4 rounded-lg mx-auto"
              onClick={() => {
                router.push(`/pdfUpload`);
              }}
@@ -59,7 +60,7 @@ const QuizPage: React.FC = () => {
              Generate another quiz.
            </button>
        
-           <p className="italic font-medium text-lg">Mastery is close.</p>
+           <p className="italic font-medium text-sm md:text-lg">Mastery is close.</p>
          </div>
        </div>
        
