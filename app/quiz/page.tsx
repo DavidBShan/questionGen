@@ -42,7 +42,7 @@ const QuizPage: React.FC = () => {
            </p>
          </div>
        
-         <div className="text-center mt-20 mx-7">
+         <div className="text-center mt-20 mx-7 md:mx-0">
            <Image src={"/arrow.svg"} height={3412 / 7} width={2376 / 7} alt="" />
            <p className="pt-6 text-sm md:text-lg">Practice lets you hit your targets.</p>
          </div>

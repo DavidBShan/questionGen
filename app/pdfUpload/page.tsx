@@ -13,7 +13,7 @@ const Home: React.FC = () => {
   const [pdfText, setPdfText] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [dailyStreak, setDailyStreak] = useState(0);
-  const [currentState, setState] = useState('loading');//nothing
+  const [currentState, setState] = useState('nothing');
   const [feedback, setFeedback] = useState('');
 
   const feedbackSubmit = async () => {
