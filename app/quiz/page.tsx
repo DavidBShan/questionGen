@@ -11,21 +11,33 @@ const QuizPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
+
   const handleOptionSelect = (option: string) => {
-    setSelectedOption(option);
+    if (correctState === "nothing") {
+      setSelectedOption(option);
+    } 
   };
 
+  const [correctState, setCorrectState] = useState("nothing");
   const [chatOpen, setChatOpen] = useState(false);
 
   const handleNextQuestion = () => {
-    if (selectedOption === quizData[currentQuestion].correctAnswer) {
-      setScore(score + 1);
-    }
-    if (currentQuestion < quizData.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-      setSelectedOption(null);
+
+    if (correctState === "nothing") {
+      if (selectedOption === quizData[currentQuestion].correctAnswer) {
+        setScore(score + 1);
+        setCorrectState("correct");
+      }else{
+        setCorrectState("incorrect");
+      }
     } else {
-      setQuizCompleted(true);
+        if (currentQuestion < quizData.length - 1) {
+          setCurrentQuestion(currentQuestion + 1);
+          setSelectedOption(null);
+          setCorrectState("nothing");
+        } else {
+          setQuizCompleted(true);
+        }
     }
   };
 
@@ -86,14 +98,19 @@ const QuizPage: React.FC = () => {
                       key={index}
                       onClick={() => handleOptionSelect(option)}
                       className={`
-                        flex-shrink-0 cursor-pointer hover:bg-gray-200  
+                        flex-shrink-0 cursor-pointer
                         rounded-lg text-center
                         p-2 md:p-3
                         text-lg md:text-2xl md:font-medium 
                         w-[75%] md:w-1/2
-                        outline outline-2 outline-aceflow-blue ${
-                          selectedOption === option ? "bg-blue-300" : ""
-                        }`}
+                        outline outline-2 outline-aceflow-blue 
+ 
+                        ${correctState === "nothing" && selectedOption !== option ? "hover:bg-gray-200" : "cursor-default"}
+
+                        ${correctState === "nothing" && selectedOption === option ? "bg-blue-200" : ""}
+                        ${correctState === "correct" && selectedOption === option ? "bg-green-100 outline-green-600" : ""}
+                        ${correctState === "incorrect" && selectedOption === option ? "bg-red-100 outline-red-600" : ""}
+                        `}
                     >
                       <span className="mr-2">{String.fromCharCode(65 + index)}.</span>{option}
                     </li>
@@ -126,7 +143,7 @@ const QuizPage: React.FC = () => {
               className="bg-aceflow-blue text-lg md:text-2xl hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg w-32 md:w-40 mx-auto"
               onClick={handleNextQuestion}
             >
-              Next
+              {correctState === "nothing" ? <div>Check</div>: <div>Next</div>}
             </button>
           </div>
         )}
