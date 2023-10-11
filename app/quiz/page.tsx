@@ -10,6 +10,7 @@ const QuizPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [correctState, setCorrectState] = useState("nothing");
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option);
   };
@@ -17,6 +18,9 @@ const QuizPage: React.FC = () => {
   const handleNextQuestion = () => {
     if (selectedOption === quizData[currentQuestion].correctAnswer) {
       setScore(score + 1);
+      setCorrectState("correct");
+    }else{
+      setCorrectState("incorrect");
     }
     if (currentQuestion < quizData.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
@@ -74,6 +78,9 @@ const QuizPage: React.FC = () => {
             </button>
           </div>
         )}
+        <div>
+        {correctState === "correct" ? "correct" : correctState === "incorrect" ? "incorrect" : "do a question first"}
+        </div>
       </div>
       <div className="w-1/4 p-4 overflow-y-auto">
         <ChatWidget />
