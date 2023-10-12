@@ -8,14 +8,14 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
   formData.append('pdf', file);
 
   try {
-    const uploadResponse = await fetch('https://quiz-generator-wheat.vercel.app/api/uploadPDF', {
+    const uploadResponse = await fetch('/api/uploadPDF', {
       method: 'POST',
       body: formData,
     });
     if (uploadResponse.status !== 200) {
       throw new Error(`API call failed with status ${uploadResponse.status}`);
     }
-    const pdfParseResponse = await fetch('https://quiz-generator-wheat.vercel.app/api/pdfParse', {
+    const pdfParseResponse = await fetch('/api/pdfParse', {
       method: 'POST',
     });
     if (pdfParseResponse.status !== 200) {
@@ -25,7 +25,7 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
     }
     const pdfParseData = await pdfParseResponse.json();
     const updatedText = pdfParseData.txt;
-    const writeResponse = await fetch('https://quiz-generator-wheat.vercel.app/api/writeQuestion', {
+    const writeResponse = await fetch('/api/writeQuestion', {
       method: 'POST',
       body: JSON.stringify({ text: updatedText })
     });

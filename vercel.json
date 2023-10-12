@@ -1,0 +1,28 @@
+{
+    "routes": [
+      {
+        "src": "/api/answerQuestion.ts",
+        "methods": ["POST"],
+        "dest": "/api/answerQuestion"
+      },
+      {
+        "src": "/api/pdfParse.ts",
+        "methods": ["POST"],
+        "dest": "/api/pdfParse"
+      },
+      {
+        "src": "/api/uploadPDF.ts",
+        "methods": ["POST"],
+        "dest": "/api/uploadPDF"
+      },
+      {
+        "src": "/api/writeQuestion.ts",
+        "methods": ["POST"],
+        "dest": "/api/writeQuestion"
+      },
+      {
+        "handle": "filesystem"
+      }
+    ]
+  }
+  
