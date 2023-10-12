@@ -1,3 +1,20 @@
 {
-    "rewrites": [{ "source": "/api/index.js", "destination": "/api" }]
-  }
+  "rewrites": [
+    {
+      "source": "/api/upload-pdf",
+      "destination": "/upload-pdf"
+    },
+    {
+      "source": "/api/generate-questions",
+      "destination": "/generate-questions"
+    },
+    {
+      "source": "/api/get-pdf-text",
+      "destination": "/get-pdf-text"
+    },
+    {
+      "source": "/api/auth/[...nextauth]",
+      "destination": "/api/auth/[...nextauth]"
+    }
+  ]
+}

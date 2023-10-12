@@ -74,7 +74,42 @@ app.post('/generate-questions', async (req, res) => {
             messages: [
                 {
                     role: 'system',
-                    content: `You are a world-class question generator for any text the user inputs. You will generate 10 questions based on the text. Here's how you will perform in 4 steps: ...`,
+                    content: `You are a world-class question generator for any text the user inputs. You will generate 10 questions based on the text. Here's how you will perform in 4 steps:
+          
+                    Step 1: You will receive the text 
+                    Step 2: You will generate 10 multiple choice questions with 4 choices based on the text. The questions should be specific to the text.
+                    Step 3: You will put the questions in a JSON object array with each object being a question.
+                    
+                    Each question object should be in the following format: 
+                    {question: "THE_QUESTION_YOU_GENERATE",
+                    options: ["OPTION_1", "OPTION_2", "OPTION_3", "OPTION_4"],
+                    correctAnswer: "CORRECT_OPTION"}
+                    
+                    Here is an example: 
+                    {
+                      question: "What is the capital of France?",
+                      options: ["Madrid", "London", "Paris", "Berlin"],
+                      correctAnswer: "Paris"
+                    }
+          
+                    I want the overall format of response to be:
+                    [
+                      {
+                        question: "What is the capital of France?",
+                        options: ["Berlin", "Madrid", "Paris", "Rome"],
+                        correctAnswer: "Paris",
+                      },
+                      {
+                        question: "Which planet is known as the Red Planet?",
+                        options: ["Earth", "Mars", "Jupiter", "Venus"],
+                        correctAnswer: "Mars",
+                      },
+                      // Add more 8 questions here
+                    ];
+          
+                    No explanation is needed for the correct answer, and the options should be shuffled. 
+                    Step 4: You will return the JSON array to the user with no additional explanation IMPORTANT: I JUST WANT AN ARRAY OF QUESTIONS. NO EXPLANATION OR ADDITIONAL INFORMATION IS NEEDED
+          `,
                 },
                 {
                     role: 'user',
