@@ -9,14 +9,14 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
 
   try {
     const uploadResponse = await fetch('/api/uploadPDF', {
-      method: 'POST',
+      method: 'GET',
       body: formData,
     });
     if (uploadResponse.status !== 200) {
       throw new Error(`API call failed with status ${uploadResponse.status}`);
     }
     const pdfParseResponse = await fetch('/api/pdfParse', {
-      method: 'POST',
+      method: 'GET',
     });
     if (pdfParseResponse.status !== 200) {
       throw new Error(
@@ -26,7 +26,7 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
     const pdfParseData = await pdfParseResponse.json();
     const updatedText = pdfParseData.txt;
     const writeResponse = await fetch('/api/writeQuestion', {
-      method: 'POST',
+      method: 'GET',
       body: JSON.stringify({ text: updatedText })
     });
   } catch (error) {

@@ -4,7 +4,6 @@ export default async (req: any, res: any) => {
   const openai = new OpenAI({
       apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
   });
-    if (req.method === 'POST') {
         try {
           const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo-16k",
@@ -26,5 +25,4 @@ export default async (req: any, res: any) => {
           console.error('Error during question generation:', error);
           return res.status(500).json({ success: false, error: 'An error occurred while saving the questions' });
         }
-      }
-  };
+      };
