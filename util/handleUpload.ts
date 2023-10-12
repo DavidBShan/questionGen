@@ -1,6 +1,11 @@
 import { handleDailyStreak } from "./handleDailyStreak";
-
-export const handleFileUpload = async (file: File | null, setState: (state: string) => void, setPdfText: (text: string | null) => void, userId: any, setDailyStreak:any) => {
+export const handleFileUpload = async (
+  file: File | null,
+  setState: (state: string) => void,
+  setPdfText: (text: string | null) => void,
+  userId: any,
+  setDailyStreak: any
+) => {
   if (!file) return;
   setState('loading');
   handleDailyStreak(userId, setDailyStreak);
@@ -8,27 +13,45 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
   formData.append('pdf', file);
 
   try {
-    const uploadResponse = await fetch('/api/uploadPDF', {
+    // Make an API call to upload the PDF
+    const uploadResponse = await fetch('/upload-pdf', {
       method: 'POST',
       body: formData,
     });
+
     if (uploadResponse.status !== 200) {
       throw new Error(`API call failed with status ${uploadResponse.status}`);
     }
-    const pdfParseResponse = await fetch('/api/pdfParse', {
+
+    // Make an API call to generate questions
+    const generateQuestionsResponse = await fetch('/generate-questions', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: 'Updated text for questions' }), // Replace with your text
     });
-    if (pdfParseResponse.status !== 200) {
+
+    if (generateQuestionsResponse.status !== 200) {
       throw new Error(
-        `API call to pdfparse failed with status ${pdfParseResponse.status}`
+        `API call to generate questions failed with status ${generateQuestionsResponse.status}`
       );
     }
-    const pdfParseData = await pdfParseResponse.json();
-    const updatedText = pdfParseData.txt;
-    const writeResponse = await fetch('/api/writeQuestion', {
-      method: 'POST',
-      body: JSON.stringify({ text: updatedText })
+
+    // Make an API call to get PDF text
+    const getPDFTextResponse = await fetch('/get-pdf-text', {
+      method: 'GET',
     });
+
+    if (getPDFTextResponse.status !== 200) {
+      throw new Error(
+        `API call to get PDF text failed with status ${getPDFTextResponse.status}`
+      );
+    }
+
+    // Update the PDF text state
+    const pdfTextData = await getPDFTextResponse.json();
+    setPdfText(pdfTextData.text);
   } catch (error) {
     console.error(error);
   } finally {

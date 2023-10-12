@@ -1,4 +1,3 @@
 {
-    "rewrites": [{ "source": "/api/answerQuestion", "destination": "/api" }, { "source": "/api/pdfParse", "destination": "/api" }, { "source": "/api/uploadPDF", "destination": "/api" }, { "source": "/api/writeQuestion", "destination": "/api" }]
-}
-  
+    "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+  }
