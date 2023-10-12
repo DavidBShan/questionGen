@@ -66,7 +66,7 @@ const Loading: React.FC<LoadingProps> = ({
               </p>
             </div>
           ) : (
-            <div className="text-lg md:text-2xl text-green-500 mt-6">You're awesome, thank you so much!</div>
+            <div className="text-lg md:text-2xl text-green-500 mt-6">You are awesome, thank you so much!</div>
           )}
         </div>
      );
