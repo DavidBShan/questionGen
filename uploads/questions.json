@@ -1,0 +1,102 @@
+[
+  {
+    "question": "What is kinematics?",
+    "options": [
+      "The branch of physics that deals with forces",
+      "The branch of physics that deals with motion",
+      "The branch of physics that deals with electricity",
+      "The branch of physics that deals with light"
+    ],
+    "correctAnswer": "The branch of physics that deals with motion"
+  },
+  {
+    "question": "What are the essential aspects of motion that kinematics focuses on?",
+    "options": [
+      "Force and motion",
+      "Position, velocity, and acceleration",
+      "Energy and motion",
+      "Pressure and motion"
+    ],
+    "correctAnswer": "Position, velocity, and acceleration"
+  },
+  {
+    "question": "What are scalars and vectors in kinematics?",
+    "options": [
+      "Different types of forces",
+      "Types of motion",
+      "Categories of quantities",
+      "Types of energy"
+    ],
+    "correctAnswer": "Categories of quantities"
+  },
+  {
+    "question": "What is the difference between velocity and speed?",
+    "options": [
+      "Velocity is scalar and speed is vector",
+      "Velocity only represents magnitude, while speed represents both magnitude and direction",
+      "The two terms are interchangeable",
+      "Velocity is measured in meters per second and speed is measured in kilometers per hour"
+    ],
+    "correctAnswer": "Velocity only represents magnitude, while speed represents both magnitude and direction"
+  },
+  {
+    "question": "What is acceleration in kinematics?",
+    "options": [
+      "The change in position over time",
+      "The rate of change of velocity over time",
+      "The rate of change of displacement over time",
+      "The rate of change of speed over time"
+    ],
+    "correctAnswer": "The rate of change of velocity over time"
+  },
+  {
+    "question": "What do kinematic equations describe?",
+    "options": [
+      "The relationship between motion and energy",
+      "The relationship between motion and forces",
+      "The relationship between motion and time",
+      "The relationship between motion parameters like position, velocity, acceleration, and time"
+    ],
+    "correctAnswer": "The relationship between motion parameters like position, velocity, acceleration, and time"
+  },
+  {
+    "question": "What type of quantity is displacement in kinematics?",
+    "options": [
+      "Scalar",
+      "Vector",
+      "Energy",
+      "Force"
+    ],
+    "correctAnswer": "Vector"
+  },
+  {
+    "question": "What is the equation of motion used to describe uniformly accelerated motion?",
+    "options": [
+      "Einstein's equation",
+      "Newton's second law",
+      "Pythagorean theorem",
+      "The equations of uniformly accelerated motion"
+    ],
+    "correctAnswer": "The equations of uniformly accelerated motion"
+  },
+  {
+    "question": "What do kinematics equations help solve?",
+    "options": [
+      "Math problems",
+      "Chemistry problems",
+      "Physics problems involving motion",
+      "Biology problems"
+    ],
+    "correctAnswer": "Physics problems involving motion"
+  },
+  {
+    "question": "Why is kinematics important in engineering and everyday life?",
+    "options": [
+      "To study molecules",
+      "To analyze chemical reactions",
+      "To predict changes in temperature",
+      "To understand and predict the behavior of objects in motion"
+    ],
+    "correctAnswer": "To understand and predict the behavior of objects in motion"
+  }
+]
