@@ -1,23 +1,31 @@
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
+import pdf from 'pdf-parse'; 
+import { handleDailyStreak } from './handleDailyStreak';// Import pdf-parse library
 
-import { handleDailyStreak } from "./handleDailyStreak";
-
-export const handleFileUpload = async (file: File | null, setState: (state: string) => void, setPdfText: (text: string | null) => void, userId: any, setDailyStreak:any) => {
+export const handleFileUpload = async (file: File | null, setState: (state: string) => void, setPdfText: (text: string | null) => void, userId: any, setDailyStreak: any) => {
   if (!file) return;
   setState('loading');
   handleDailyStreak(userId, setDailyStreak);
-  const formData = new FormData();
-  formData.append('pdf', file);
-
   try {
-    const pdfParseResponse = await axios.post('/api/pdfParse', formData);
-    if (pdfParseResponse.status !== 200) {
-      throw new Error(`API call to pdfparse failed with status ${pdfParseResponse.status}`);
+    const dataBuffer = await file.arrayBuffer();
+    const data = Buffer.from(new Uint8Array(dataBuffer));
+    const pdfData = await pdf(data);
+
+    if (!pdfData.text) {
+      throw new Error('Failed to extract text from the PDF');
     }
-    //const pdfParseData = pdfParseResponse.data;
-    const updatedText = pdfParseResponse;
-    console.log(updatedText);
-    const writeResponse = await axios.post('/api/writeQuestion', { text: updatedText });
+
+    // Get the extracted text
+    const extractedText = pdfData.text;
+    console.log(extractedText);
+
+    // Now you have the extracted text in the `extractedText` variable.
+
+    // You can do further processing with the text or send it to the server if needed.
+
+    // Example of sending the text to the server:
+    const writeResponse = await axios.post('/api/writeQuestion', { text: extractedText });
+    setPdfText(extractedText);
   } catch (error) {
     console.error(error);
   } finally {
