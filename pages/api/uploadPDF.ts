@@ -20,7 +20,7 @@ export default function handler(req:any, res:any) {
       if (!pdfFile) {
         throw new Error('PDF file not found in formData');
       }
-      const uploadsFolder = path.join(process.cwd(), 'uploads');
+      const uploadsFolder = path.join(process.cwd(), 'public/uploads');
       if (!fs.existsSync(uploadsFolder)) {
         fs.mkdirSync(uploadsFolder);
       }

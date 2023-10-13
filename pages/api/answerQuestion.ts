@@ -1,4 +1,4 @@
-import pdfDoc from '../../uploads/output.json'
+import pdfDoc from '../../public/uploads/output.json'
 import OpenAI from 'openai';
 
 export default async function handler(req: any, res: any){
