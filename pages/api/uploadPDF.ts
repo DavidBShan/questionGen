@@ -1,6 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-const formidable = require('formidable');
+import formidable from 'formidable';
 
 export const config = {
   api: {
@@ -8,29 +6,20 @@ export const config = {
   },
 };
 
-export default function handler(req:any, res:any) {
-  try {
-    const form = new formidable.IncomingForm();
-    form.uploadDir = path.join(process.cwd(), 'public/uploads'); 
-    form.parse(req, async (err:any, fields:any, files:any) => {
-      if (err) {
-        throw new Error('Form parsing error: ' + err.message);
-      }
-      const pdfFile = files.pdf;
-      if (!pdfFile) {
-        throw new Error('PDF file not found in formData');
-      }
-      const uploadsFolder = path.join(process.cwd(), 'public/uploads');
-      if (!fs.existsSync(uploadsFolder)) {
-        fs.mkdirSync(uploadsFolder);
-      }
-      const uniqueFileName = `uploadedfile.pdf`;
-      fs.renameSync(pdfFile[0].filepath, path.join(uploadsFolder, uniqueFileName));
+export default function handler(req: any, res:any) {
+  const form = new formidable.IncomingForm();
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error('Error:', err.message);
+      res.status(500).json({ error: 'An error occurred during processing' });
+      return;
+    }
 
-      res.status(200).json({ message: 'PDF uploaded and saved successfully' });
-    });
-  } catch (error:any) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: 'An error occurred during processing' });
-  }
+    const pdfFile = files.pdf;
+    if (!pdfFile) {
+      res.status(400).json({ error: 'PDF file not found in formData' });
+      return;
+    }
+    res.status(200).json({ message: 'PDF uploaded successfully', pdfFile });
+  });
 }

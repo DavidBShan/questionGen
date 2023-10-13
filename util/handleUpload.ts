@@ -10,17 +10,13 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
   formData.append('pdf', file);
 
   try {
-    // Replace fetch with Axios for the following requests
-    const uploadResponse = await axios.post('/api/uploadPDF', formData);
-    if (uploadResponse.status !== 200) {
-      throw new Error(`API call failed with status ${uploadResponse.status}`);
-    }
-    const pdfParseResponse = await axios.post('/api/pdfParse');
+    const pdfParseResponse = await axios.post('/api/pdfParse', formData);
     if (pdfParseResponse.status !== 200) {
       throw new Error(`API call to pdfparse failed with status ${pdfParseResponse.status}`);
     }
-    const pdfParseData = pdfParseResponse.data;
-    const updatedText = pdfParseData.txt;
+    //const pdfParseData = pdfParseResponse.data;
+    const updatedText = pdfParseResponse;
+    console.log(updatedText);
     const writeResponse = await axios.post('/api/writeQuestion', { text: updatedText });
   } catch (error) {
     console.error(error);
