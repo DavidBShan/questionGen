@@ -8,9 +8,8 @@ export const config = {
   },
 };
 
-export default async function handler(req:any, res:any) {
+export default function handler(req:any, res:any) {
   try {
-    await new Promise(resolve => setTimeout(resolve, 1000));
     const form = new formidable.IncomingForm();
     form.uploadDir = path.join(process.cwd(), 'uploads'); 
     form.parse(req, async (err:any, fields:any, files:any) => {
