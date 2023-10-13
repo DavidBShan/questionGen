@@ -1,13 +1,16 @@
 import fs from 'fs';
 import OpenAI from 'openai';
-export default async (req: any, res: any) => {
-  const openai = new OpenAI({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
-});
-        try {
-          const parsedText = JSON.parse(req.body).text;
-          const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo-16k",
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if(req.method === 'POST'){
+    try{    
+      const openai = new OpenAI({
+        apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
+    });
+    const parsedText = JSON.parse(req.body).text;
+    const response = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo-16k",
             temperature: 1.2,
                   messages:[
                       {
@@ -69,4 +72,6 @@ export default async (req: any, res: any) => {
           console.error('Error during question generation:', error);
           return res.status(500).json({ success: false, error: 'An error occurred while saving the questions' });
         }
-      };
+  }
+}
+ 
