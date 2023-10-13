@@ -1,6 +1,4 @@
 import axios from 'axios';
-import fs from 'fs';
-import pdf from 'pdf-parse';
 import { handleDailyStreak } from './handleDailyStreak';// Import pdf-parse library
 
 export const handleFileUpload = async (file: File | null, setState: (state: string) => void, setPdfText: (text: string | null) => void, userId: any, setDailyStreak: any) => {
