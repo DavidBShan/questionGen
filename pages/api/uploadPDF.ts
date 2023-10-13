@@ -11,7 +11,7 @@ export const config = {
 export default function handler(req:any, res:any) {
   try {
     const form = new formidable.IncomingForm();
-    form.uploadDir = path.join(process.cwd(), 'uploads'); 
+    form.uploadDir = path.join(process.cwd(), 'public/uploads'); 
     form.parse(req, async (err:any, fields:any, files:any) => {
       if (err) {
         throw new Error('Form parsing error: ' + err.message);
