@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import ChatWidget from "../components/ChatWidget";
-import quizData from '../../uploads/questions.json'
+import quizData from '../../public/uploads/questions.json'
 import Image from "next/image";
 
 const QuizPage: React.FC = () => {
