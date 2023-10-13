@@ -27,10 +27,10 @@ export default function handler(req:any, res:any) {
       const uniqueFileName = `uploadedfile`;
       fs.renameSync(pdfFile[0].filepath, path.join(uploadsFolder, uniqueFileName));
 
-      res.status(200).json({ message: 'PDF uploaded and saved successfully' });
+      res.end({ message: 'PDF uploaded and saved successfully' });
     });
   } catch (error:any) {
     console.error('Error:', error.message);
-    res.status(500).json({ error: 'An error occurred during processing' });
+    res.end({ error: 'An error occurred during processing' });
   }
 }
