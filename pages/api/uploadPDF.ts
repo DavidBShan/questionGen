@@ -24,7 +24,7 @@ export default function handler(req:any, res:any) {
       if (!fs.existsSync(uploadsFolder)) {
         fs.mkdirSync(uploadsFolder);
       }
-      const uniqueFileName = `uploadedfile`;
+      const uniqueFileName = `uploadedfile.pdf`;
       fs.renameSync(pdfFile[0].filepath, path.join(uploadsFolder, uniqueFileName));
 
       res.status(200).json({ message: 'PDF uploaded and saved successfully' });
