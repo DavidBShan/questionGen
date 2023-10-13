@@ -1,4 +1,5 @@
 import axios from 'axios';
+import fs from 'fs';
 import pdf from 'pdf-parse'; 
 import { handleDailyStreak } from './handleDailyStreak';// Import pdf-parse library
 
