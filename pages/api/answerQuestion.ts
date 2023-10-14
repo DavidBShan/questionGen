@@ -1,4 +1,4 @@
-import pdfDoc from '../../uploads/output.json'
+import pdfDoc from '../../.output/static/output.json'
 import OpenAI from 'openai';
 export default async (req: any, res: any) => {
   const openai = new OpenAI({

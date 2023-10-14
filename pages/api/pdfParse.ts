@@ -16,10 +16,10 @@ async function readPDF(pdfPath:any) {
 
 export default async function handler(req:any, res:any) {
     try {
-        const txt = await readPDF("uploads/uploadedfile");
+        const txt = await readPDF(".output/static/uploadedfile");
 
         const jsonData = { text: txt };
-        const jsonFileName = "uploads/output.json";
+        const jsonFileName = ".output/static/output.json";
 
         fs.writeFileSync(jsonFileName, JSON.stringify(jsonData, null, 2));
         

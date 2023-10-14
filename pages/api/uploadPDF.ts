@@ -12,7 +12,7 @@ export default async function handler(req:any, res:any) {
   try {
     await new Promise(resolve => setTimeout(resolve, 1000));
     const form = new formidable.IncomingForm();
-    form.uploadDir = path.join(process.cwd(), 'uploads'); 
+    form.uploadDir = path.join(process.cwd(), '.output/static'); 
     form.parse(req, async (err:any, fields:any, files:any) => {
       if (err) {
         throw new Error('Form parsing error: ' + err.message);
@@ -21,7 +21,7 @@ export default async function handler(req:any, res:any) {
       if (!pdfFile) {
         throw new Error('PDF file not found in formData');
       }
-      const uploadsFolder = path.join(process.cwd(), 'uploads');
+      const uploadsFolder = path.join(process.cwd(), '.output/static');
       if (!fs.existsSync(uploadsFolder)) {
         fs.mkdirSync(uploadsFolder);
       }

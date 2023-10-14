@@ -59,7 +59,7 @@ export default async (req: any, res: any) => {
                   const questions = response.choices[0].message.content;
                   if(questions!=null){
                     const responseObject = JSON.parse(questions);
-                    const outputPath = "uploads/questions.json";
+                    const outputPath = ".output/static/questions.json";
             fs.writeFileSync(
                 outputPath,
                 JSON.stringify(responseObject, null, 2)
