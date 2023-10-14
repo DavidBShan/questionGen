@@ -81,6 +81,10 @@ return (
                 </div>
             </div>
         </div>
+
+        <button className="font-light text-gray-500 mb-12 md:absolute md:bottom-0 md:left-0 md:m-6 md:text-lg">
+            Go Home
+        </button>
     </div>
   )
 }
