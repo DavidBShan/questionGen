@@ -64,7 +64,7 @@ export default async (req: any, res: any) => {
                 outputPath,
                 JSON.stringify(responseObject, null, 2)
             );
-            res.status(200).json({ message: 'question generated!' });
+            res.status(200).json({ message: 'question generated' });
                   }
         } catch (error) {
           console.error('Error during question generation:', error);
