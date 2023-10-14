@@ -14,7 +14,7 @@ const Loading: React.FC<LoadingProps> = ({
     feedbackSubmit
 }) => {
     return ( 
-        <div className="flex flex-col items-center justify-center h-screen text-center">
+        <div className="flex flex-col items-center justify-center h-screen text-center pt-32">
           <h1 className="text-3xl md:text-5xl font-bold mb-4">
             Are you ready to ace this?
           </h1>
@@ -23,8 +23,10 @@ const Loading: React.FC<LoadingProps> = ({
             screen open to get your practice questions.
           </p>
 
-          <Image src={"/icon.svg"} height={3412/9} width={2376/9} alt="" className="px-6 md:px-0"/>
-
+          <div className="spinning-container">
+            
+          <Image src={"/earth-removebg.png"} height={3412/10} width={2376/10} alt="" className="px-6 md:px-0 animate-spin"/>
+          </div>
           <div className="flex flex-col items-center justify-center pt-4 ">
             <div className="flex items-end font-bold text-lg md:text-2xl">
                 <Image src={"/bulb.svg"} height={2000/18} width={1000/18} alt="" className="w-12 md:w-14" />

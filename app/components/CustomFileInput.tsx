@@ -25,14 +25,14 @@ const CustomFileInput = ({setFile}:any) => {
     <div>
       <div
         onClick={handleClick}
-        className={`p-4 flex flex-col items-center gap-2  ${isFilesSelected ? 'rounded-t-3xl' : 'rounded-3xl'} hover:bg-gray-100 cursor-pointer`}
+        className={`p-4 flex flex-col items-center gap-2 py-10  ${isFilesSelected ? 'rounded-t-3xl' : 'rounded-3xl'} hover:bg-gray-100 cursor-pointer`}
       >
         <AiOutlineFilePdf 
-        className="h-16 w-16 md:h-28 md:w-28"        
+        className="h-16 w-16 md:h-28 md:w-28 lg:h-32 lg:w-32"        
         />
 
-        <div className="block text-md md:text-lg font-semibold text-center">Create questions from your study material!</div>
-                <div className="text-center text-sm text-black">Accepted formats: PDF</div>
+        <div className="block text-md md:text-2xl font-semibold text-center">Create questions from your study material!</div>
+                <div className="text-center text-sm md:text-lg text-black">Accepted formats: PDF</div>
         
                 <input
                 type="file"
