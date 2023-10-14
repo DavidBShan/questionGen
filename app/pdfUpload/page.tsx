@@ -6,7 +6,10 @@ import { handleFileUpload } from '../../util/handleUpload';
 import emailjs from 'emailjs-com'
 import CustomFileInput from '../components/CustomFileInput';
 import Loading from './Loading';
+import Navbar from '../components/Navbar';
 
+import Checkbox from '../components/Checkbox';
+import ProPrompt from '../components/ProPrompt';
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -15,6 +18,8 @@ const Home: React.FC = () => {
   const [dailyStreak, setDailyStreak] = useState(0);
   const [currentState, setState] = useState('nothing');
   const [feedback, setFeedback] = useState('');
+
+  const [proPrompt, setProPrompt] = useState(false);
 
   const feedbackSubmit = async () => {
     var templateParams = {
@@ -29,7 +34,9 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
+    <div>
+      <Navbar/>
+      <div className="min-h-screen flex flex-col justify-center items-center">
       {currentState === 'loading' || currentState === 'submitted' ? (
         <Loading currentState={currentState} feedback={feedback} setFeedback={setFeedback} feedbackSubmit={feedbackSubmit}/>
       ) : (
@@ -78,13 +85,21 @@ const Home: React.FC = () => {
             </div>
           ) : (
             <div className="w-full max-w-md mx-auto">
-              <div className="text-3xl font-bold mb-6">Your quiz is ready!</div>
+              <div className="text-5xl font-bold mb-14">Your quiz is ready!</div>
              
+             {proPrompt && <>
+                <div className='w-screen h-screen absolute inset-0 bg-neutral-800/70'/>
+                <ProPrompt setProPrompt={setProPrompt}/>
+              </>}
+
+              <span className='text-xl font-medium'>Customize your quiz: </span>
+              <div className='flex flex-col items-center justify-center'> <Checkbox label="Timed Quiz" setProPrompt={setProPrompt}/></div>
+
               <button
                 onClick={() => {
                   router.push(`/quiz`);
                 }}
-                className="w-full bg-aceflow-blue font-bold text-2xl text-white py-3 rounded-xl hover:bg-blue-600"
+                className="w-[50%] mt-14 bg-aceflow-blue font-bold text-2xl text-white py-3 rounded-xl hover:bg-blue-600"
               >
                 Start Challenge
               </button>
@@ -92,6 +107,7 @@ const Home: React.FC = () => {
           )}
         </div>
       )}
+    </div>
     </div>
   );
 };

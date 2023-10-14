@@ -5,6 +5,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import SessionProvider from './providers/SessionProvider';
 import ToasterProvider from './providers/ToasterProvider';
+import Navbar from './components/Navbar';
 
 const inter = Inter({ subsets: ['latin'] })
 
