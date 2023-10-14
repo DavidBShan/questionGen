@@ -2,26 +2,32 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { handleFileUpload } from '../../util/handleUpload';
-import emailjs from 'emailjs-com'
+import emailjs from 'emailjs-com';
 import CustomFileInput from '../components/CustomFileInput';
 import { useSession } from 'next-auth/react';
 import Loading from './Loading';
 
-
-const Home: React.FC = () => {
+const Home = () => {
   const router = useRouter();
-  const [pdfText, setPdfText] = useState<string | null>(null);
-  const [file, setFile] = useState<File | null>(null);
+  const [pdfText, setPdfText] = useState(null);
+  const [file, setFile] = useState<any>(null);
   const [dailyStreak, setDailyStreak] = useState(0);
   const [currentState, setState] = useState('nothing');
   const [feedback, setFeedback] = useState('');
   const { data: session } = useSession();
 
-  const handleStart = () => {
+  const handleStart = async () => {
     const userId = session?.user;
-    handleFileUpload(file, setState, setPdfText, userId, setDailyStreak)
-  }
+    const formData = new FormData();
+    formData.set("file", file);
+    const response = await fetch("/api/pdfParse", {
+      method: "POST",
+      body: formData,
+    });
+    const body = await response.json();
+    console.log(body);
+  };
+
 
 
   const feedbackSubmit = async () => {
