@@ -2,7 +2,6 @@
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import ChatWidget from "../components/ChatWidget";
-import quizData from '../../.output/static/questions.json'
 import Image from "next/image";
 
 const QuizPage: React.FC = () => {
@@ -12,6 +11,23 @@ const QuizPage: React.FC = () => {
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [correctState, setCorrectState] = useState("nothing");
+  const quizData = [
+    {
+      question: "What is the capital of France?",
+      options: ["Berlin", "London", "Paris", "Madrid"],
+      correctAnswer: "Paris",
+    },
+    {
+      question: "Which planet is known as the Red Planet?",
+      options: ["Venus", "Mars", "Jupiter", "Saturn"],
+      correctAnswer: "Mars",
+    },
+    {
+      question: "What is the largest mammal in the world?",
+      options: ["Elephant", "Giraffe", "Blue Whale", "Lion"],
+      correctAnswer: "Blue Whale",
+    }
+  ];
   const handleOptionSelect = (option: string) => {
     if (correctState === "nothing") {
       setSelectedOption(option);
