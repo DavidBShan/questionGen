@@ -31,7 +31,7 @@ export default async function handler(req:any, res:any) {
         throw new Error('Form parsing erroer: ' + err.message);
       }
       const pdfFile = files.pdf;
-      const text = readPDF(pdfFile[0].filepath);
+      const text = await readPDF(pdfFile[0].filepath);
       console.log(text);
       if (!pdfFile) {
         throw new Error('PDF file not found in formData');
