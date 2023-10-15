@@ -8,7 +8,8 @@ import { PineconeStore } from "langchain/vectorstores/pinecone";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
       const form = new IncomingForm();
-      let pdfLoader = new PDFLoader("default/default.pdf");
+      let pdfLoader = new PDFLoader("default/default");
+      let file = null;
       form.parse(req, async (err, fields, files) => {
         console.log("Yeet")
         if (err) {
@@ -18,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           throw new Error('PDF file not found in formData');
         }else{
           console.log("Yeet")
-          const file = files.file[0];
+          file = files.file[0];
           console.log(file.filepath);
           pdfLoader = new PDFLoader(file.filepath);
         }
