@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     try {
       const form = new IncomingForm();
-      let pdfLoader = new PDFLoader("../../public/default.pdf");
+      let pdfLoader = new PDFLoader("../../default/default.pdf");
       form.parse(req, (err, fields, files) => {
         if (err) {
           throw new Error('Form parsing error: ' + err.message);
