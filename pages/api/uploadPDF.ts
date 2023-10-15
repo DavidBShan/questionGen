@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+const pdf = require('pdf-parse');
 const formidable = require('formidable');
 
 export const config = {
@@ -8,25 +9,33 @@ export const config = {
   },
 };
 
+async function readPDF(pdfPath:any) {
+  return new Promise(async (resolve, reject) => {
+      try {
+          const dataBuffer = fs.readFileSync(pdfPath);
+          pdf(dataBuffer).then(function (data:any) {
+              resolve(data.text);
+          });
+      } catch (error) {
+          reject(error);
+      }
+  });
+}
+
 export default async function handler(req:any, res:any) {
   try {
     await new Promise(resolve => setTimeout(resolve, 1000));
     const form = new formidable.IncomingForm();
-    form.uploadDir = path.join(process.cwd(), '.output/static'); 
     form.parse(req, async (err:any, fields:any, files:any) => {
       if (err) {
         throw new Error('Form parsing error: ' + err.message);
       }
       const pdfFile = files.pdf;
+      const text = readPDF(pdfFile[0].filepath);
+      console.log(text);
       if (!pdfFile) {
         throw new Error('PDF file not found in formData');
       }
-      const uploadsFolder = path.join(process.cwd(), '.output/static');
-      if (!fs.existsSync(uploadsFolder)) {
-        fs.mkdirSync(uploadsFolder);
-      }
-      const uniqueFileName = `uploadedfile`;
-      fs.renameSync(pdfFile[0].filepath, path.join(uploadsFolder, uniqueFileName));
 
       res.status(200).json({ message: 'PDF uploaded and saved successfully' });
     });
