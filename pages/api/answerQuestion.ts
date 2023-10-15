@@ -1,30 +1,35 @@
-import pdfDoc from '../../.output/static/output.json'
-import OpenAI from 'openai';
-export default async (req: any, res: any) => {
-  const openai = new OpenAI({
-      apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
-  });
-    if (req.method === 'POST') {
-        try {
-          const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo-16k",
-            temperature: 1.2,
-                  messages:[
-                    {
-                      role: "system",
-                      content: `You will be given a question as well as course content. You will answer the question based on the course content. If the course content doesn't help with the question answer accordingly. 
-                `,
-                    },
-                    {
-                      role: "user",
-                      content: `This is the course content: ${pdfDoc.text}. This is the question: ${req.body.question}`,
-                    },
-                  ],
-                  });
-                  res.status(200).json({ message: response.choices[0].message.content });
-        } catch (error) {
-          console.error('Error during question generation:', error);
-          return res.status(500).json({ success: false, error: 'An error occurred while saving the questions' });
-        }
-      }
-  };
+import { Pinecone } from "@pinecone-database/pinecone";      
+import { PineconeStore } from "langchain/vectorstores/pinecone";
+import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { OpenAI } from "langchain/llms/openai";
+import { VectorDBQAChain } from "langchain/chains";
+import { StreamingTextResponse, LangChainStream } from "ai";
+import { CallbackManager } from "langchain/callbacks";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse){
+  if (req.method === 'POST') {
+    const body = req.body;
+    const { stream, handlers } = LangChainStream();
+    const pinecone = new Pinecone({      
+      environment: "gcp-starter",      
+      apiKey: process.env.PINECONE_API_KEY as string,   
+    });      
+    const pineconeIndex = pinecone.Index("quiz-generator");
+    const vectorStore = await PineconeStore.fromExistingIndex(
+      new OpenAIEmbeddings(),
+      { pineconeIndex }
+    );
+    const model = new OpenAI({
+      modelName: "gpt-3.5-turbo",
+      streaming: true,
+      callbackManager: CallbackManager.fromHandlers(handlers),
+    });
+    const chain = VectorDBQAChain.fromLLM(model, vectorStore, {
+      k: 1,
+      returnSourceDocuments: true,
+    });
+    chain.call({ query: body.prompt }).catch(console.error);
+    res.status(200).json({response:new StreamingTextResponse(stream)});
+  }
+};

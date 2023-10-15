@@ -1,37 +1,37 @@
-import fs from 'fs';
-import path from 'path';
-const formidable = require('formidable');
+import { IncomingForm } from 'formidable';
+import { PDFLoader } from "langchain/document_loaders/fs/pdf";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { Pinecone } from "@pinecone-database/pinecone";
+import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { PineconeStore } from "langchain/vectorstores/pinecone";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-export default async function handler(req:any, res:any) {
-  try {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const form = new formidable.IncomingForm();
-    form.uploadDir = path.join(process.cwd(), '.output/static'); 
-    form.parse(req, async (err:any, fields:any, files:any) => {
-      if (err) {
-        throw new Error('Form parsing error: ' + err.message);
-      }
-      const pdfFile = files.pdf;
-      if (!pdfFile) {
-        throw new Error('PDF file not found in formData');
-      }
-      const uploadsFolder = path.join(process.cwd(), '.output/static');
-      if (!fs.existsSync(uploadsFolder)) {
-        fs.mkdirSync(uploadsFolder);
-      }
-      const uniqueFileName = `uploadedfile`;
-      fs.renameSync(pdfFile[0].filepath, path.join(uploadsFolder, uniqueFileName));
-
-      res.status(200).json({ message: 'PDF uploaded and saved successfully' });
-    });
-  } catch (error:any) {
-    console.error('Error:', error.message);
-    res.status(500).json({ error: 'An error occurred during processing' });
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'POST') {
+    try {
+      const form = new IncomingForm();
+      let pdfLoader = new PDFLoader("public/default.pdf");
+      form.parse(req, (err, fields, files) => {
+        if (err) {
+          throw new Error('Form parsing error: ' + err.message);
+        }
+        if (!files.file) {
+          throw new Error('PDF file not found in formData');
+        }else{
+          const file = files.file[0];
+          pdfLoader = new PDFLoader(file.filepath);
+        }
+      });
+      const splitDocuments = await pdfLoader.loadAndSplit();
+      const pinecone = new Pinecone({
+        environment: "gcp-starter",
+        apiKey: process.env.NEXT_PINECONE_API_KEY as string,
+      });
+      const pineconeIndex = pinecone.Index("quiz-generator");
+      await PineconeStore.fromDocuments(splitDocuments, new OpenAIEmbeddings(), { pineconeIndex });
+      return res.status(200).json({ message: 'Success' });
+    } catch (error: any) {
+      console.error('Error:', error.message);
+      res.status(500).json({ error: 'An error occurred during processing' });
+    }
   }
 }
