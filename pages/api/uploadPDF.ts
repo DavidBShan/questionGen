@@ -32,12 +32,8 @@ export default async function handler(req:any, res:any) {
       }
       const pdfFile = files.pdf;
       const text = await readPDF(pdfFile[0].filepath);
-      console.log(text);
-      if (!pdfFile) {
-        throw new Error('PDF file not found in formData');
-      }
-
-      res.status(200).json({ message: 'PDF uploaded and saved successfully' });
+      const txt = JSON.stringify(text);
+      res.status(200).json(txt);
     });
   } catch (error:any) {
     console.error('Error:', error.message);

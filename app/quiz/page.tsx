@@ -1,12 +1,14 @@
 'use client'
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { useGlobalContext } from '../Context/store';
 import ChatWidget from "../components/ChatWidget";
-import quizData from '../../.output/static/questions.json'
 import Image from "next/image";
 
-const QuizPage: React.FC = () => {
+const useQuizPage: React.FC = () => {
   const router = useRouter();
+  const {data, setData } = useGlobalContext();
+  console.log(data);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [score, setScore] = useState(0);
@@ -22,14 +24,14 @@ const QuizPage: React.FC = () => {
   const handleNextQuestion = () => {
 
     if (correctState === "nothing") {
-      if (selectedOption === quizData[currentQuestion].correctAnswer) {
+      if (selectedOption === data[currentQuestion].correctAnswer) {
         setScore(score + 1);
         setCorrectState("correct");
       }else{
         setCorrectState("incorrect");
       }
     } else {
-        if (currentQuestion < quizData.length - 1) {
+        if (currentQuestion < data.length - 1) {
           setCurrentQuestion(currentQuestion + 1);
           setSelectedOption(null);
           setCorrectState("nothing");
@@ -48,7 +50,7 @@ const QuizPage: React.FC = () => {
            <h1 className="text-3xl md:text-5xl font-bold">Quiz Completed</h1>
            <p className="text-lg md:text-2xl font-semibold">
              Your score: <span className="text-green-400 font-semibold">{score}</span> out of{" "}
-             <span className="text-blue-400 font-semibold">{quizData.length}</span>
+             <span className="text-blue-400 font-semibold">{data.length}</span>
            </p>
          </div>
        
@@ -83,15 +85,15 @@ const QuizPage: React.FC = () => {
                 <h1 className="text-xl md:text-3xl text-center font-bold">Quiz</h1>
                 <p className="text-lg md:text-2xl text-center font-semibold">
                   Question <span className="text-blue-600 font-semibold">{currentQuestion + 1}</span> of{" "}
-                  <span className="text-blue-600">{quizData.length}</span>
+                  <span className="text-blue-600">{data.length}</span>
                 </p>
               </div>
               
               <div className="grid gap-8">
-                <h3 className="px-8 md:px-0 text-xl md:text-4xl  font-bold text-center">{quizData[currentQuestion].question}</h3>
+                <h3 className="px-8 md:px-0 text-xl md:text-4xl  font-bold text-center">{data[currentQuestion].question}</h3>
 
                 <ul className="flex flex-wrap gap-6 justify-center">
-                  {quizData[currentQuestion].options.map((option: string, index: number) => (
+                  {data[currentQuestion].options.map((option: string, index: number) => (
                     <li
                       key={index}
                       onClick={() => handleOptionSelect(option)}
@@ -157,4 +159,4 @@ const QuizPage: React.FC = () => {
   );
 };
 
-export default QuizPage;
+export default useQuizPage;

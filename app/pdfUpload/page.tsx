@@ -7,11 +7,11 @@ import emailjs from 'emailjs-com'
 import CustomFileInput from '../components/CustomFileInput';
 import { useSession } from 'next-auth/react';
 import Loading from './Loading';
+import { useGlobalContext } from '../Context/store';
 
-
-const Home: React.FC = () => {
+const useHome: React.FC = () => {
   const router = useRouter();
-  const [pdfText, setPdfText] = useState<string | null>(null);
+  const {data, setData } = useGlobalContext();
   const [file, setFile] = useState<File | null>(null);
   const [dailyStreak, setDailyStreak] = useState(0);
   const [currentState, setState] = useState('nothing');
@@ -20,7 +20,8 @@ const Home: React.FC = () => {
 
   const handleStart = () => {
     const userId = session?.user;
-    handleFileUpload(file, setState, setPdfText, userId, setDailyStreak)
+    handleFileUpload(file, setState, userId, setDailyStreak, setData);
+    console.log(data);
   }
 
 
@@ -104,4 +105,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default useHome;

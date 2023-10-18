@@ -1,6 +1,7 @@
 import { handleDailyStreak } from "./handleDailyStreak";
+import { useMyContext } from "@/app/question";
 
-export const handleFileUpload = async (file: File | null, setState: (state: string) => void, setPdfText: (text: string | null) => void, userId: any, setDailyStreak:any) => {
+export const handleFileUpload = async (file: File | null, setState: (state: string) => void,  userId: any, setDailyStreak:any, setData:any) => {
   if (!file) return;
   setState('loading');
   handleDailyStreak(userId, setDailyStreak);
@@ -15,20 +16,22 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
     if (uploadResponse.status !== 200) {
       throw new Error(`API call failed with status ${uploadResponse.status}`);
     }
-    const pdfParseResponse = await fetch('/api/pdfParse', {
-      method: 'POST',
-    });
-    if (pdfParseResponse.status !== 200) {
-      throw new Error(
-        `API call to pdfparse failed with status ${pdfParseResponse.status}`
-      );
-    }
-    const pdfParseData = await pdfParseResponse.json();
-    const updatedText = pdfParseData.txt;
+    const pdfParseData = JSON.parse(await uploadResponse.json());
+    console.log(pdfParseData)
     const writeResponse = await fetch('/api/writeQuestion', {
       method: 'POST',
-      body: JSON.stringify({ text: updatedText })
+      body: JSON.stringify({ text: pdfParseData })
     });
+    if (writeResponse.status !== 200) {
+      throw new Error(`API call failed with status ${writeResponse.status}`);
+    }
+    const writeData = await writeResponse.json();
+    console.log(writeData);
+    console.log(JSON.parse(writeData.questions));
+    const questions = JSON.parse(writeData.questions);
+    console.log("yo yo yo");
+    console.log(questions[0]);
+    setData(questions);
   } catch (error) {
     console.error(error);
   } finally {
