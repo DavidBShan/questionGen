@@ -1,0 +1,7 @@
+{
+    "functions": {
+      "api/writeQuestion.ts": {
+        "maxDuration": 120
+      }
+    }
+  }
