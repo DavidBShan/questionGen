@@ -8,7 +8,7 @@ export default async (req: any, res: any) => {
         try {
           const parsedText = JSON.parse(req.body).text;
           const response = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo-16k",
+            model: "gpt-3.5-turbo",
             temperature: 1.2,
                   messages:[
                       {
@@ -57,6 +57,7 @@ export default async (req: any, res: any) => {
                     ],
                   });
                   const questions = response.choices[0].message.content;
+                  console.log(questions);
                   if(questions!=null){
                     res.status(200).json({questions});
                   }
