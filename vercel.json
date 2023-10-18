@@ -1,6 +1,6 @@
 {
     "functions": {
-      "api/writeQuestion.ts": {
+      "pages/api/writeQuestion.ts": {
         "maxDuration": 120
       }
     }
