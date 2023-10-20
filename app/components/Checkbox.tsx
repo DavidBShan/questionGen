@@ -18,7 +18,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ label, setProPrompt, ...props }) =>
       <span className='text-2xl font-bold'>{label}</span>
       <input
         type="checkbox"
-        className="form-checkbox w-6 h-6 bg-gray-800"
+        className="h-6 w-6 bg-gray-800"
         checked={isChecked}
         onChange={handleClick}  
         {...props}

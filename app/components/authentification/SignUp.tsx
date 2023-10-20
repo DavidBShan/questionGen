@@ -43,18 +43,18 @@ const SignUp: React.FC<SignUpProps> = ({
   }, [firstName, lastName, setDisplayName]);
 
   return ( 
-    <div className="grid space-y-4 px-60 w-full">
+    <div className="grid w-full space-y-4 px-60">
         <div className="grid content-start justify-center">
         <button
-            className="font-bold text-md md:text-xl gap-4 hover:bg-gray-100
-                        flex items-center rounded-lg py-2 pl-3 md:pl-8 border-4 w-60 h-15 md:w-80 md:h-20"
+            className="flex w-60 items-center gap-4
+                        rounded-lg border-4 py-2 pl-3 text-base font-bold hover:bg-gray-100 md:h-20 md:w-80 md:pl-8 md:text-xl"
             onClick={handleSignIn}
             >
             <FcGoogle size={30} /> Sign up with Google
             </button>
         </div>
 
-        <div className="sm:text-xl md:text-2xl lg:text-3xl text-gray-400 grid content-start text-center">- OR -</div>
+        <div className="grid content-start text-center text-gray-400 sm:text-xl md:text-2xl lg:text-3xl">- OR -</div>
 
         <Form className="grid gap-4">
             {/* <input
@@ -65,7 +65,7 @@ const SignUp: React.FC<SignUpProps> = ({
             onChange={(e) => setFirstName(e.target.value)}
             required
             placeholder="First Name"
-            className="text-md md:text-lg md:text-2xl border-b-4 py-2 max-h-14 font-bold placeholder-gray-500 outline-0 rounded-none"
+            className="text-base md:text-lg md:text-2xl border-b-4 py-2 max-h-14 font-bold placeholder-gray-500 outline-0 rounded-none"
             />
             <input
             id="lastName"
@@ -75,7 +75,7 @@ const SignUp: React.FC<SignUpProps> = ({
             onChange={(e) => setLastName(e.target.value)}
             required
             placeholder="Last Name"
-            className="text-md md:text-lg md:text-2xl border-b-4 py-2 max-h-14 font-bold placeholder-gray-500 outline-0 rounded-none"
+            className="text-base md:text-lg md:text-2xl border-b-4 py-2 max-h-14 font-bold placeholder-gray-500 outline-0 rounded-none"
             /> */}
             <input
             id="email"
@@ -85,7 +85,7 @@ const SignUp: React.FC<SignUpProps> = ({
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="Email Address"
-            className="text-md md:text-lg md:text-2xl border-b-4 py-2 max-h-14 font-bold placeholder-gray-500 outline-0 rounded-none"
+            className="max-h-14 rounded-none border-b-4 py-2 text-base font-bold outline-0 placeholder:text-gray-500 md:text-lg lg:text-2xl"
             />
             <input
             id="password"
@@ -95,7 +95,7 @@ const SignUp: React.FC<SignUpProps> = ({
             onChange={(e) => setPassword(e.target.value)}
             required
             placeholder="Create Password"
-            className="text-md md:text-lg md:text-2xl border-b-4 py-2 max-h-14 font-bold placeholder-gray-500 outline-0 rounded-none"
+            className="max-h-14 rounded-none border-b-4 py-2 text-base font-bold outline-0 placeholder:text-gray-500 md:text-lg lg:text-2xl"
             />
             <input
             id="passwordAgain"
@@ -105,7 +105,7 @@ const SignUp: React.FC<SignUpProps> = ({
             onChange={(e) => setPasswordAgain(e.target.value)}
             required
             placeholder="Confirm Password"
-            className="text-md md:text-lg md:text-2xl border-b-4 py-2 max-h-14 font-bold placeholder-gray-500 outline-0 rounded-none"
+            className="max-h-14 rounded-none border-b-4 py-2 text-base font-bold outline-0 placeholder:text-gray-500 md:text-lg lg:text-2xl"
             />
         </Form>
 
