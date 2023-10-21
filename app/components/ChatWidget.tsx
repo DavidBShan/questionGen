@@ -1,64 +1,68 @@
 import React, { useState } from 'react';
+import { useGlobalContext } from '../Context/store';
 
-async function callApi(question:any) {
-    try {
-      const response = await fetch("/api/answerQuestion", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          question: question,
-        }),
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
-        return data.message;
-      } else {
-        console.error("API request failed with status:", response.status);
-      }
-    } catch (error) {
-      console.error("Error calling the API:", error);
+async function callApi(question: any, pdfText: any) {
+  try {
+    console.log(pdfText);
+    const response = await fetch("/api/answerQuestion", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        question: question,
+        text: pdfText
+      }),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData.message;
+    } else {
+      console.error("API request failed with status:", response.status);
     }
+  } catch (error) {
+    console.error("Error calling the API:", error);
   }
+}
 
 const ChatWidget = () => {
-    const [messages, setMessages] = useState([
-        { role: "system", id: 1, content: 'Hi there, how can I help you?'}
-      ]);
-    
-      const [newMessage, setNewMessage] = useState('');
-    
-      const handleInputChange = (e:any) => {
-        setNewMessage(e.target.value);
-      };
-    
-      const handleSendMessage = async () => {
-        if (newMessage.trim() === '') return;
-    
-        const newMessageObj = {
-          role: "user",
-          content: newMessage,
-          id: messages.length + 1,
-        };
-        const thinkingMessageObj = {
-          role: "tutor",
-          content: "AI Tutor is thinking...",
-          id: messages.length + 2,
-        };
-        
-        setMessages([...messages, newMessageObj, thinkingMessageObj]);
-        setNewMessage('');
-        const answer = await callApi(newMessage);
-        const tutorMessageObj = {
-            role: "tutor",
-            content: answer,
-            id: messages.length + 2,
-          };
-          setMessages([...messages,  newMessageObj, tutorMessageObj]);
-        setNewMessage('');
-      };
+  const [newMessage, setNewMessage] = useState('');
+  const { data, setData, messages, setMessages , pdfText, setPdfText} = useGlobalContext();
+  
+  const handleInputChange = (e: any) => {
+    setNewMessage(e.target.value);
+  };
+
+  const handleSendMessage = async () => {
+    if (newMessage.trim() === '') return;
+
+    const newMessageObj = {
+      role: "user",
+      content: newMessage,
+      id: messages.length + 1,
+    };
+
+    const thinkingMessageObj = {
+      role: "tutor",
+      content: "AI Tutor is thinking...",
+      id: messages.length + 2,
+    };
+
+    setMessages([...messages, newMessageObj, thinkingMessageObj]);
+    setNewMessage('');
+
+    const answer = await callApi(newMessage, pdfText);
+
+    const tutorMessageObj = {
+      role: "tutor",
+      content: answer,
+      id: messages.length + 3, // Ensure a unique ID
+    };
+
+    setMessages([...messages, newMessageObj, tutorMessageObj]);
+    setNewMessage('');
+  };
 
   return (
 

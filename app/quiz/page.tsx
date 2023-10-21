@@ -7,8 +7,7 @@ import Image from "next/image";
 
 const useQuizPage: React.FC = () => {
   const router = useRouter();
-  const {data, setData } = useGlobalContext();
-  console.log(data);
+  const {data, setData, messages, setMessages, pdfText, setPdfText} = useGlobalContext();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [score, setScore] = useState(0);

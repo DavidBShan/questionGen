@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { handleFileUpload } from '../../util/handleUpload';
@@ -8,22 +8,29 @@ import CustomFileInput from '../components/CustomFileInput';
 import { useSession } from 'next-auth/react';
 import Loading from './Loading';
 import { useGlobalContext } from '../Context/store';
+import { getDailyStreak } from '@/util/getDailyStreak';
 
 const useHome: React.FC = () => {
   const router = useRouter();
-  const {data, setData } = useGlobalContext();
+  const { data, setData, messages, setMessages, pdfText, setPdfText} = useGlobalContext();
   const [file, setFile] = useState<File | null>(null);
   const [dailyStreak, setDailyStreak] = useState(0);
   const [currentState, setState] = useState('nothing');
   const [feedback, setFeedback] = useState('');
   const { data: session } = useSession();
+  const [userId, setUserId] = useState<any>(session?.user);
+
+  useEffect(() => {
+    if (userId !== undefined) {
+      getDailyStreak(userId, setDailyStreak);
+    }
+  }, [userId]);
 
   const handleStart = () => {
     const userId = session?.user;
-    handleFileUpload(file, setState, userId, setDailyStreak, setData);
+    handleFileUpload(file, setState, userId, setDailyStreak, setData, setPdfText);
     console.log(data);
   }
-
 
   const feedbackSubmit = async () => {
     var templateParams = {
