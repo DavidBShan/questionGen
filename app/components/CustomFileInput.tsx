@@ -25,7 +25,7 @@ const CustomFileInput = ({setFile}:any) => {
     <div>
       <div
         onClick={handleClick}
-        className={`flex flex-col items-center gap-2 p-4 py-10  ${isFilesSelected ? 'rounded-t-3xl' : 'rounded-3xl'} cursor-pointer hover:bg-gray-100`}
+        className={`flex flex-col items-center gap-2 p-2 py-10  ${isFilesSelected ? 'rounded-t-3xl' : 'rounded-3xl'} cursor-pointer hover:bg-gray-100`}
       >
         <AiOutlineFilePdf 
         className="h-16 w-16 md:h-28 md:w-28 lg:h-32 lg:w-32"        

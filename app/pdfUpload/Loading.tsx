@@ -14,7 +14,7 @@ const Loading: React.FC<LoadingProps> = ({
     feedbackSubmit
 }) => {
     return ( 
-        <div className="flex h-screen flex-col items-center justify-center pt-32 text-center">
+        <div className="flex h-screen flex-col items-center p-10 text-center">
           <h1 className="mb-4 text-3xl font-bold md:text-5xl">
             Are you ready to ace this?
           </h1>

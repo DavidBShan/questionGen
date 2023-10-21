@@ -42,20 +42,20 @@ const QuizPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col md:flex-row">
+    <div className="flex h-screen flex-col items-center justify-center md:flex-row">
       <div className="no-scrollbar w-full md:overflow-y-auto">
         {quizCompleted ? (
-         <div className="mx-6 flex h-screen flex-col items-center justify-center gap-8 md:mx-[35%] md:gap-0">
+         <div className="mx-auto flex h-fit max-w-screen-sm flex-col items-center justify-center gap-8">
          <div className="text-center">
-           <h1 className="text-3xl font-bold md:text-5xl">Quiz Completed</h1>
+           <h1 className="pt-10 text-3xl font-bold md:text-5xl">Quiz Completed</h1>
            <p className="text-lg font-semibold md:text-2xl">
              Your score: <span className="font-semibold text-green-400">{score}</span> out of{" "}
              <span className="font-semibold text-blue-400">{quizData.length}</span>
            </p>
          </div>
        
-         <div className="mx-7 mt-20 text-center md:mx-0">
-           <Image src={"/arrow.svg"} height={3412 / 7} width={2376 / 7} alt="" />
+         <div className="mx-7 text-center md:mx-0 md:mt-20">
+           <Image src={"/arrow.svg"} height={3412 / 7} width={2376} alt="" className="h-48 w-48 md:h-72 md:w-72"/>
            <p className="pt-6 text-sm md:text-lg">Practice lets you hit your targets.</p>
          </div>
        
