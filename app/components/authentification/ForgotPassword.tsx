@@ -17,7 +17,7 @@ const SignIn = () => {
     };
 
   return ( 
-    <div className="grid space-y-4 px-60 w-full">
+    <div className="grid w-full space-y-4 px-60">
 
         <Form className="grid gap-4">
             
@@ -29,7 +29,7 @@ const SignIn = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="Email Address"
-            className="text-md md:text-lg md:text-2xl border-b-4 py-2 max-h-14 font-bold placeholder-gray-500 outline-0 rounded-none"
+            className="max-h-14 rounded-none border-b-4 py-2 font-bold outline-0 placeholder:text-gray-500 md:text-lg xl:text-2xl"
             />
             
         </Form>

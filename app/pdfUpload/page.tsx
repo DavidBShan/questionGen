@@ -45,62 +45,110 @@ const useHome: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
+    <div>
+      <Navbar/>
+      
+      <div className="flex min-h-screen flex-col items-center justify-center">
       {currentState === 'loading' || currentState === 'submitted' ? (
         <Loading currentState={currentState} feedback={feedback} setFeedback={setFeedback} feedbackSubmit={feedbackSubmit}/>
       ) : (
         <div className="text-center ">
           {currentState === 'nothing' ? (
-            <div className="w-full max-w-md mx-auto space-y-12">
-              <div>
-              <div className='font-light text-xs md:text-md'>PRACTICE QUESTIONS</div>
-              <div className="text-xl md:text-3xl font-bold mb-6">
-                <span className="text-black">Master Anything With </span>
-                <span className="text-aceflow-blue">Unlimited Practice </span>
-                <span className="text-black">Questions</span>
-              </div>
-              
-              <form
-                onSubmit={(e) => e.preventDefault()}
-                encType="multipart/form-data"
-                className='rounded-3xl outline outline-blue-200 mx-6 md:mx-0'//cursor-pointer
-              >
-                  <CustomFileInput setFile = {setFile}/> 
-              </form>
+            <div className="mx-auto w-full max-w-xl space-y-12">
+                <div>
+                <div className='pt-32 text-sm font-light md:text-lg'>PRACTICE QUESTIONS</div>
+                <div className="mb-6 text-xl font-bold md:text-4xl">
+                  <span className="text-black">Master Anything With </span> <br/>
+                  <span className="text-aceflow-blue">Unlimited Practice </span>
+                  <span className="text-black">Questions</span>
+                </div>
+                
+                <div className='flex flex-col items-center'>
+                  <div className='flex w-screen flex-col items-center justify-center gap-6 md:flex-row lg:gap-12'>
+                    
+                    <div className='mx-6 grid w-80 gap-2 rounded-3xl px-6 py-4 
+                      outline outline-blue-200
+                      md:mx-0 md:w-[25%] md:py-8 lg:px-10'>
+                      <div className="text-3xl font-semibold text-blue-950 md:text-4xl lg:text-5xl">
+                        Day {dailyStreak.toString()} 🔥
+                      </div>
+                      <div className="text-lg font-medium text-orange-500 md:text-xl lg:text-2xl">Your Daily Streak</div>
+                      <div className="text-sm text-gray-500  lg:text-base">
+                        Build a habit of studying each day and watch your streak rise up!
+                      </div>
+                    </div>
 
-              <button
-                onClick={handleStart}
-                className="w-[40%] mt-4 bg-aceflow-blue font-bold 
-                text-xl
-                md:text-2xl 
-                text-white py-2 rounded-xl hover:bg-blue-600"
-              >
-                Make Quiz
-              </button>
-              </div>
-              
-              <div className='grid gap-2 rounded-3xl outline outline-blue-200 
-                py-4 px-10
-                md:py-8 md:px-20 mx-6 md:mx-0'>
-                <div className="text-3xl md:text-5xl text-blue-950 font-semibold">
-                  Day {dailyStreak.toString()} 🔥
+                    <form
+                      onSubmit={(e) => e.preventDefault()}
+                      encType="multipart/form-data"
+                      className='mx-6 rounded-3xl outline outline-blue-200 md:mx-0 md:w-[35%]'
+                    >
+                        <CustomFileInput setFile = {setFile}/> 
+                    </form>
+
+                    <div className='mx-6 grid w-80 gap-2 rounded-3xl px-6 py-4 
+                      outline outline-blue-200
+                      md:mx-0 md:w-[25%] md:py-8 lg:px-10'>
+                      <div className="text-3xl font-semibold text-blue-950 md:text-4xl lg:text-5xl">
+                        Questions
+                      </div>
+                      <div className="text-lg font-medium text-orange-500 md:text-xl lg:text-2xl">5 Questions Left</div>
+                      <div className="text-sm text-gray-500 lg:text-base">
+                        Get unlimited practice questions, and get unlimited success.
+                        <span> <button className='font-bold text-aceflow-blue underline'>Go Pro.</button></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-lg md:text-2xl font-medium text-orange-500">Your Daily Streak</div>
-                <div className="text-sm md:text-md text-gray-500">
-                  Build a habit of studying each day and watch your streak rise up!
-                </div>
+
+                <button
+                  onClick={()=>{handleFileUpload(file, setState, setPdfText);}}
+                  className="mt-4 w-[40%] rounded-xl bg-aceflow-blue 
+                  py-2
+                  text-xl 
+                  font-bold text-white hover:bg-blue-600 md:text-2xl"
+                >
+                  Make Quiz
+                </button>
+
+                  <div className='mx-6 mt-12 grid gap-2 rounded-3xl 
+                      px-6 py-4
+                     outline outline-blue-200 md:mx-0 lg:px-10'>
+                      <div className="text-3xl font-semibold text-blue-950 md:text-4xl lg:text-5xl">
+                        Your stats
+                      </div>
+                      <div className="grid text-sm font-semibold md:text-lg">
+                        <span>
+                          Questions answered: 0
+                        </span>
+                        <span>
+                          Quizzes completed: 0
+                        </span>
+                        <span>
+                          Correct answers: 0
+                        </span>
+                      </div>
+                    </div>
               </div>
 
             </div>
           ) : (
-            <div className="w-full max-w-md mx-auto">
-              <div className="text-3xl font-bold mb-6">Your quiz is ready!</div>
+            <div className="mx-auto w-full max-w-md">
+              <div className="mb-14 text-5xl font-bold">Your quiz is ready!</div>
              
+             {proPrompt && <>
+                <div className='absolute inset-0 h-screen w-screen bg-neutral-800/70'/>
+                <ProPrompt setProPrompt={setProPrompt}/>
+              </>}
+
+              <span className='text-xl font-medium'>Customize your quiz: </span>
+              <div className='flex flex-col items-center justify-center'> <Checkbox label="Timed Quiz" setProPrompt={setProPrompt}/></div>
+
               <button
                 onClick={() => {
                   router.push(`/quiz`);
                 }}
-                className="w-full bg-aceflow-blue font-bold text-2xl text-white py-3 rounded-xl hover:bg-blue-600"
+                className="mt-14 w-[50%] rounded-xl bg-aceflow-blue py-3 text-2xl font-bold text-white hover:bg-blue-600"
               >
                 Start Challenge
               </button>

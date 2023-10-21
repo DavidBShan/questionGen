@@ -41,29 +41,29 @@ const useQuizPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen">
-      <div className="w-full md:overflow-y-auto no-scrollbar">
+    <div className="flex h-screen flex-col md:flex-row">
+      <div className="no-scrollbar w-full md:overflow-y-auto">
         {quizCompleted ? (
-         <div className="flex flex-col items-center justify-center gap-8 md:gap-0 h-screen mx-6 md:mx-[35%]">
+         <div className="mx-6 flex h-screen flex-col items-center justify-center gap-8 md:mx-[35%] md:gap-0">
          <div className="text-center">
-           <h1 className="text-3xl md:text-5xl font-bold">Quiz Completed</h1>
-           <p className="text-lg md:text-2xl font-semibold">
-             Your score: <span className="text-green-400 font-semibold">{score}</span> out of{" "}
-             <span className="text-blue-400 font-semibold">{data.length}</span>
+           <h1 className="text-3xl font-bold md:text-5xl">Quiz Completed</h1>
+           <p className="text-lg font-semibold md:text-2xl">
+             Your score: <span className="font-semibold text-green-400">{score}</span> out of{" "}
+             <span className="font-semibold text-blue-400">{quizData.length}</span>
            </p>
          </div>
        
-         <div className="text-center mt-20 mx-7 md:mx-0">
+         <div className="mx-7 mt-20 text-center md:mx-0">
            <Image src={"/arrow.svg"} height={3412 / 7} width={2376 / 7} alt="" />
            <p className="pt-6 text-sm md:text-lg">Practice lets you hit your targets.</p>
          </div>
        
-         <div className="text-center grid gap-8 mt-8">
-           <p className="text-xl md:text-3xl mx-auto">Want to ace your next test? Keep practicing with more questions.</p>
+         <div className="mt-8 grid gap-8 text-center">
+           <p className="mx-auto text-xl md:text-3xl">Want to ace your next test? Keep practicing with more questions.</p>
        
            <button
-             className="bg-aceflow-blue text-lg md:text-2xl hover:bg-blue-700 text-white 
-             font-bold py-3 px-4 rounded-lg mx-auto"
+             className="mx-auto rounded-lg bg-aceflow-blue px-4 py-3 
+             text-lg font-bold text-white hover:bg-blue-700 md:text-2xl"
              onClick={() => {
                router.push(`/pdfUpload`);
              }}
@@ -71,38 +71,38 @@ const useQuizPage: React.FC = () => {
              Generate another quiz.
            </button>
        
-           <p className="italic font-medium text-sm md:text-lg">Mastery is close.</p>
+           <p className="text-sm font-medium italic md:text-lg">Mastery is close.</p>
          </div>
        </div>
        
        
         ) : (
-          <div className="grid gap-8 md:gap-14 items-center justify-center">
+          <div className="grid items-center justify-center gap-8 md:gap-14">
             
             <div className="space-y-10 md:space-y-20">
               <div className="mt-8">
-                <h1 className="text-xl md:text-3xl text-center font-bold">Quiz</h1>
-                <p className="text-lg md:text-2xl text-center font-semibold">
-                  Question <span className="text-blue-600 font-semibold">{currentQuestion + 1}</span> of{" "}
-                  <span className="text-blue-600">{data.length}</span>
+                <h1 className="text-center text-xl font-bold md:text-3xl">Quiz</h1>
+                <p className="text-center text-lg font-semibold md:text-2xl">
+                  Question <span className="font-semibold text-blue-600">{currentQuestion + 1}</span> of{" "}
+                  <span className="text-blue-600">{quizData.length}</span>
                 </p>
               </div>
               
               <div className="grid gap-8">
-                <h3 className="px-8 md:px-0 text-xl md:text-4xl  font-bold text-center">{data[currentQuestion].question}</h3>
+                <h3 className="px-8 text-center text-xl font-bold  md:px-0 md:text-4xl">{quizData[currentQuestion].question}</h3>
 
-                <ul className="flex flex-wrap gap-6 justify-center">
-                  {data[currentQuestion].options.map((option: string, index: number) => (
+                <ul className="flex flex-wrap justify-center gap-6">
+                  {quizData[currentQuestion].options.map((option: string, index: number) => (
                     <li
                       key={index}
                       onClick={() => handleOptionSelect(option)}
                       className={`
-                        flex-shrink-0 cursor-pointer
-                        rounded-lg text-center
-                        p-2 md:p-3
-                        text-lg md:text-2xl md:font-medium 
-                        w-[75%] md:w-1/2
-                        outline outline-2 outline-aceflow-blue 
+                        w-[75%] shrink-0
+                        cursor-pointer rounded-lg
+                        p-2 text-center
+                        text-lg outline outline-2 
+                        outline-aceflow-blue md:w-1/2
+                        md:p-3 md:text-2xl md:font-medium 
  
                         ${correctState === "nothing" && selectedOption !== option ? "hover:bg-gray-200" : "cursor-default"}
 
@@ -119,18 +119,18 @@ const useQuizPage: React.FC = () => {
             </div>
             
             {(chatOpen) ? 
-            (<div className="text-md md:text-xl text-center">
+            (<div className="text-center text-base md:text-xl">
               You&apos;ve got this. <button 
-                  className='cursor font-medium text-aceflow-blue underline'
+                  className='font-medium text-aceflow-blue underline'
                   onClick={()=>{setChatOpen(false)}}
                 >
                   Remove AI tutor
                 </button>
             </div>)
             :
-            (<div className="text-md md:text-xl text-center">
+            (<div className="text-center text-base md:text-xl">
               Stuck? <button 
-                  className='cursor font-medium text-aceflow-blue underline'
+                  className='font-medium text-aceflow-blue underline'
                   onClick={()=>{setChatOpen(true)}}
                 >
                   Ask your AI tutor for help
@@ -139,7 +139,7 @@ const useQuizPage: React.FC = () => {
             }
 
             <button
-              className="bg-aceflow-blue text-lg md:text-2xl hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg w-32 md:w-40 mx-auto"
+              className="mx-auto w-32 rounded-lg bg-aceflow-blue px-4 py-3 text-lg font-bold text-white hover:bg-blue-700 md:w-40 md:text-2xl"
               onClick={handleNextQuestion}
             >
               {correctState === "nothing" ? <div>Check</div>: <div>Next</div>}
@@ -151,7 +151,7 @@ const useQuizPage: React.FC = () => {
         </div>
       </div>
 
-      {!chatOpen || !quizCompleted && <div className="md:w-[45%] lg:w-[35%] xl:w-1/4 p-4 md:overflow-y-auto">
+      {!chatOpen || !quizCompleted && <div className="p-4 md:w-[45%] md:overflow-y-auto lg:w-[35%] xl:w-1/4">
         <ChatWidget />
       </div>}
     </div>
