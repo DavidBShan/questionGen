@@ -16,7 +16,7 @@ export default async (req: any, res: any) => {
                         content: `You are a world-class question generator for any text the user inputs. You will generate 10 questions based on the text. Here's how you will perform in 4 steps:
           
           Step 1: You will receive the text 
-          Step 2: You will generate 10 multiple choice questions with 4 choices based on the text. The questions should be specific to the text.
+          Step 2: You will generate 10 multiple choice questions with 4 choices based on the text. The questions should be specific to the text and out of the choices make sure that only one of them is correct. Make the questions obvious if the person doing the test has read the text
           Step 3: You will put the questions in a JSON object array with each object being a question.
           
           Each question object should be in the following format: 

@@ -2,6 +2,9 @@
     "functions": {
       "pages/api/writeQuestion.ts": {
         "maxDuration": 120
+      },
+      "pages/api/answerQuestion.ts": {
+        "maxDuration": 120
       }
     }
   }

@@ -13,6 +13,7 @@ const useQuizPage: React.FC = () => {
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [correctState, setCorrectState] = useState("nothing");
+  console.log(data);
   const handleOptionSelect = (option: string) => {
     if (correctState === "nothing") {
       setSelectedOption(option);
@@ -49,7 +50,7 @@ const useQuizPage: React.FC = () => {
            <h1 className="text-3xl font-bold md:text-5xl">Quiz Completed</h1>
            <p className="text-lg font-semibold md:text-2xl">
              Your score: <span className="font-semibold text-green-400">{score}</span> out of{" "}
-             <span className="font-semibold text-blue-400">{quizData.length}</span>
+             <span className="font-semibold text-blue-400">{data.length}</span>
            </p>
          </div>
        
@@ -84,15 +85,15 @@ const useQuizPage: React.FC = () => {
                 <h1 className="text-center text-xl font-bold md:text-3xl">Quiz</h1>
                 <p className="text-center text-lg font-semibold md:text-2xl">
                   Question <span className="font-semibold text-blue-600">{currentQuestion + 1}</span> of{" "}
-                  <span className="text-blue-600">{quizData.length}</span>
+                  <span className="text-blue-600">{data.length}</span>
                 </p>
               </div>
               
               <div className="grid gap-8">
-                <h3 className="px-8 text-center text-xl font-bold  md:px-0 md:text-4xl">{quizData[currentQuestion].question}</h3>
+                <h3 className="px-8 text-center text-xl font-bold  md:px-0 md:text-4xl">{data[currentQuestion].question}</h3>
 
                 <ul className="flex flex-wrap justify-center gap-6">
-                  {quizData[currentQuestion].options.map((option: string, index: number) => (
+                  {data[currentQuestion].options.map((option: string, index: number) => (
                     <li
                       key={index}
                       onClick={() => handleOptionSelect(option)}
