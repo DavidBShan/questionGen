@@ -89,19 +89,6 @@ const useHome: React.FC = () => {
                     >
                         <CustomFileInput setFile = {setFile}/> 
                     </form>
-
-                    <div className='mx-6 grid w-80 gap-2 rounded-3xl p-4 
-                      outline outline-blue-200
-                      md:mx-0 md:w-[25%] md:py-8 lg:px-10'>
-                      <div className="text-3xl font-semibold text-blue-950 md:text-4xl lg:text-5xl">
-                        Questions
-                      </div>
-                      <div className="text-lg font-medium text-orange-500 md:text-xl lg:text-2xl">5 Questions Left</div>
-                      <div className="text-sm text-gray-500 lg:text-base">
-                        Get unlimited practice questions, and get unlimited success.
-                        <span> <button className='font-bold text-aceflow-blue underline'>Go Pro.</button></span>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -114,25 +101,6 @@ const useHome: React.FC = () => {
                 >
                   Make Quiz
                 </button>
-
-                  <div className='mx-6 mt-12 grid gap-2 rounded-3xl 
-                      px-6 py-4
-                     outline outline-blue-200 md:mx-0 lg:px-10'>
-                      <div className="text-3xl font-semibold text-blue-950 md:text-4xl lg:text-5xl">
-                        Your stats
-                      </div>
-                      <div className="grid text-sm font-semibold md:text-lg">
-                        <span>
-                          Questions answered: 0
-                        </span>
-                        <span>
-                          Quizzes completed: 0
-                        </span>
-                        <span>
-                          Correct answers: 0
-                        </span>
-                      </div>
-                    </div>
               </div>
             </div>
           ) : (
@@ -143,9 +111,6 @@ const useHome: React.FC = () => {
                 <div className='absolute inset-0 h-screen w-screen bg-neutral-800/70'/>
                 <ProPrompt setProPrompt={setProPrompt}/>
               </>}
-
-              <span className='text-xl font-medium'>Customize your quiz: </span>
-              <div className='flex flex-col items-center justify-center'> <Checkbox label="Timed Quiz" setProPrompt={setProPrompt}/></div>
 
               <button
                 onClick={() => {

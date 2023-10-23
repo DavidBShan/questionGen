@@ -11,12 +11,6 @@ const Navbar = () => {
         <div className="text-2xl font-black md:text-4xl">
             <span>Aceflow</span>
         </div>
-
-        <div>
-            <button className="w-full rounded-xl bg-aceflow-blue p-3 text-sm font-medium text-white hover:bg-blue-600 md:px-5 md:text-lg">
-            Try Aceflow Pro+
-            </button>
-        </div>
         </nav>
     </div>
   );
