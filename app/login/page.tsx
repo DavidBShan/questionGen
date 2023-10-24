@@ -4,7 +4,6 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/config';
 
 import { useRouter } from "next/navigation";
-import BigButton from "../components/Button";
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useEffect, useState } from "react";
 
@@ -53,35 +52,36 @@ export default function Home() {
 
   const signUp = () => {
     createUserWithEmailAndPassword(auth, email, password);
+    setCurrentPage("SignIn");
   };
 
   //---------------------------------------------------Returning the component below
   return (
-    <div className="bg-blue-400 h-screen text-white">
-      <div className="md:w-[35%] px-10 py-40">
-        <h3 className="text-center md:text-left text-lg md:text-xl lg:text-2xl px-1">Welcome to Aceflow.</h3>
-        <h1 className="text-center md:text-left text-xl md:text-3xl lg:text-5xl text-justify font-semibold">
+    <div className="h-screen w-screen bg-blue-400 text-white">
+      <div className="px-10 py-40 md:w-[35%]">
+        <h3 className="px-1 text-center text-lg md:text-left md:text-xl lg:text-2xl">Welcome to Aceflow.</h3>
+        <h1 className="text-center text-xl font-semibold md:text-left md:text-3xl lg:text-5xl">
           Accelerate your learning, and unlock a new future.
         </h1>
       </div>
 
-      <div className="grid bg-white text-black flex justify-center items-center
-            rounded-t-[50px] h-[75%] 
-            md:rounded-tr-[0px] 
-            md:rounded-l-[50px] 
+      <div className="grid h-[75%] items-center justify-center rounded-t-[50px]
+            bg-white text-black 
             md:absolute 
             md:inset-y-0 
             md:right-0 
-            md:w-[65%]  
-            md:h-screen">
+            md:h-screen 
+            md:w-[65%] 
+            md:rounded-l-[50px]  
+            md:rounded-tr-[0px]">
         
-        <div className="text-xl md:text-4xl lg:text-6xl text-center font-bold pb-0 md:px-[15%] h-2">
+        <div className="h-2 pb-0 text-center text-xl font-bold md:px-[15%] md:text-4xl lg:text-6xl">
           Your next journey starts here.
         </div>
 
         {loading? null : user ? (
-          <div className="grid flex flex-col gap-4 ">
-            <div className="flex flex-col gap-4 items-center justify-center">          
+          <div className="flex flex-col gap-4 ">
+            <div className="flex flex-col items-center justify-center gap-4">          
               <Loader/>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function Home() {
               (
                 <div className='text-center'>
                   <ForgotPassword/>
-                  <button className='cursor text-center' onClick={() => setCurrentPage('SignIn')}>
+                  <button className='text-center' onClick={() => setCurrentPage('SignIn')}>
                       Remembered your password? Log in.
                   </button>
                 </div>
@@ -106,26 +106,25 @@ export default function Home() {
                   signUp={signUp}
                 /> 
                 <button 
-                  className='cursor text-center'
+                  className='text-center'
                   onClick={() => setCurrentPage('SignIn')}
                 >
                   Already have an account? Log in.
                 </button>
               </div>) : null }
 
-            {(currentPage === "SignIn") ? (<div className='text-center flex flex-col gap-2'>
+            {(currentPage === "SignIn") ? (<div className='flex flex-col gap-2 text-center'>
                 <SignIn
                   handleSignIn={() => signIn('google')} setEmail={setEmail} setPassword = {setPassword} setDisplayName = {setDisplayName}
                   email={email} password={password}
                 /> 
                 <button 
-                      className='cursor'
                       onClick={() => setCurrentPage('SignUp')}
                     >
                       Don&apos;t have an account? Sign up.
                 </button>
                 <button 
-                  className='cursor text-center'
+                  className='text-center'
                   onClick={() => setCurrentPage('ForgotPassword')}
                 >
                   Forgot your password?

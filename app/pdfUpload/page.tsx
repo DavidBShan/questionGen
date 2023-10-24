@@ -89,6 +89,19 @@ const useHome: React.FC = () => {
                     >
                         <CustomFileInput setFile = {setFile}/> 
                     </form>
+
+                    <div className='mx-6 grid w-80 gap-2 rounded-3xl p-4 
+                      outline outline-blue-200
+                      md:mx-0 md:w-[25%] md:py-8 lg:px-10'>
+                      <div className="text-3xl font-semibold text-blue-950 md:text-4xl lg:text-5xl">
+                        Quizzes
+                      </div>
+                      <div className="text-lg font-medium text-orange-500 md:text-xl lg:text-2xl">5 Quizzes Left</div>
+                      <div className="text-sm text-gray-500 lg:text-base">
+                        Get unlimited practice questions, and get unlimited success.
+                        <span> <button onClick={()=>{router.push(`/pro`)}}  className='font-bold text-aceflow-blue underline'>Go Pro.</button></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
