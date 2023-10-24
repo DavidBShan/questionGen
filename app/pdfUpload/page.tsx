@@ -106,7 +106,7 @@ const useHome: React.FC = () => {
                 </div>
 
                 <button
-                  onClick={()=>{handleFileUpload(file, setState, userId, setDailyStreak, setData, setPdfText);}}
+                  onClick={handleStart} //handleFileUpload(file, setState, userId, setDailyStreak, setData, setPdfText)
                   className="mt-4 w-[40%] rounded-xl bg-aceflow-blue 
                   py-2
                   text-xl 

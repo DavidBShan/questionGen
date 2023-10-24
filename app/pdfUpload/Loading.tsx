@@ -23,7 +23,6 @@ const Loading: React.FC<LoadingProps> = ({
             screen open to get your practice questions.
           </p>
 
-          {/* eslint-disable-next-line tailwindcss/no-custom-classname */}
           <div className="spinning-container">
             
           <Image src={"/earth-removebg.png"} height={3412/10} width={2376/10} alt="" className="animate-spin px-6 md:px-0"/>

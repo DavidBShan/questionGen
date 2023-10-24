@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import fs from 'fs';
 import OpenAI from 'openai';
 export default async (req: any, res: any) => {
@@ -52,9 +53,22 @@ export default async (req: any, res: any) => {
                   if(questions!=null){
                     res.status(200).json({questions});
                   }
-        } catch (error) {
+        } catch (error:any) {
           console.error('Error during question generation:', error);
-          return res.status(500).json({ success: false, error: 'An error occurred while saving the questions' });
+
+          if (error?.message.includes("Please reduce the length of the messages.")) {
+            // Handle the specific error
+            return res.status(400).json({
+              success: false,
+              statusText: 'Please reduce the length of the messages.',
+            });
+          } else {
+            // Handle other errors
+            return res.status(500).json({
+              success: false,
+              error: 'An error occurred while saving the questions',
+            });
+          }
         }
       }
   };
