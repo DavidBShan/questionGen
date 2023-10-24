@@ -30,11 +30,9 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
 
       if (errorText.includes("Please reduce the length of the messages.")) {
         toast.error("The PDF file is too long!");
-      } else {
-        toast.error("There was an error generating your quiz!");
-      }
-
-      throw new Error(`API call failed with status ${writeResponse.status}`);
+        } else {
+          throw new Error(`API call failed with status ${writeResponse.status}`);
+        } 
     }
 
     const writeData = await writeResponse.json();
@@ -47,5 +45,6 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
   } catch (error) {
     setState('nothing');
     console.error(error);
+    toast.error("There was an error generating your quiz!");
   } 
 };

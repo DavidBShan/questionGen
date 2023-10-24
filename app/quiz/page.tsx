@@ -147,9 +147,6 @@ const useQuizPage: React.FC = () => {
             </button>
           </div>
         )}
-        <div>
-        {correctState === "correct" ? "correct" : correctState === "incorrect" ? "incorrect" : "do a question first"}
-        </div>
       </div>
 
       {!chatOpen || !quizCompleted && <div className="p-4 md:w-[45%] md:overflow-y-auto lg:w-[35%] xl:w-1/4">

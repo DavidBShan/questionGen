@@ -37,8 +37,8 @@ export default async (req: any, res: any) => {
 
           No explanation is needed for the correct answer, and the options should be shuffled. 
           No explanation is needed for the correct answer, and the options should be shuffled. 
-          Make sure that the correctAnswer property is completely the same as one of the optitons
-          Make sure that the correctAnswer property is completely the same as one of the optitons
+          Make sure that the correctAnswer property is completely the same as one of the options
+          Make sure that the correctAnswer property is completely the same as one of the options
           Step 4: You will return the JSON array to the user with no additional explanation
           `,
                       },
