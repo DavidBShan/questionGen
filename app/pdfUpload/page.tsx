@@ -79,12 +79,12 @@ const Home: React.FC = () => {
                       outline outline-blue-200
                       md:mx-0 md:w-[25%] md:py-8 lg:px-10'>
                       <div className="text-3xl font-semibold text-blue-950 md:text-4xl lg:text-5xl">
-                        Questions
+                        Quizzes
                       </div>
-                      <div className="text-lg font-medium text-orange-500 md:text-xl lg:text-2xl">5 Questions Left</div>
+                      <div className="text-lg font-medium text-orange-500 md:text-xl lg:text-2xl">5 Quizzes Left</div>
                       <div className="text-sm text-gray-500 lg:text-base">
                         Get unlimited practice questions, and get unlimited success.
-                        <span> <button className='font-bold text-aceflow-blue underline'>Go Pro.</button></span>
+                        <span> <button onClick={()=>{router.push(`/pro`)}}  className='font-bold text-aceflow-blue underline'>Go Pro.</button></span>
                       </div>
                     </div>
                   </div>

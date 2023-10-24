@@ -75,7 +75,7 @@ return (
                         Go Unlimited
                     </button>
                     </div>
-                    <div className="md:text-md mb-10 text-xs font-light">
+                    <div className="md:text-md mb-10 text-xs">
                         Backed With Learning Science | Cancel Anytime | 24/7 Customer Support
                     </div>
                 </div>

@@ -52,6 +52,7 @@ export default function Home() {
 
   const signUp = () => {
     createUserWithEmailAndPassword(auth, email, password);
+    setCurrentPage("SignIn");
   };
 
   //---------------------------------------------------Returning the component below
