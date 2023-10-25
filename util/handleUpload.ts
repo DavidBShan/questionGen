@@ -1,5 +1,6 @@
 import { handleDailyStreak } from "./handleDailyStreak";
 import { toast } from "react-hot-toast";
+import { uploadUserData } from "./users";
 
 export const handleFileUpload = async (file: File | null, setState: (state: string) => void,  userId: any, setDailyStreak:any, setData:any, setPdfText: any) => {
   if (!file) return;
@@ -42,6 +43,9 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
     console.log(questions[0]);
     setData(questions);
     setState('finished');
+
+    uploadUserData(userId, "same", -1);
+
   } catch (error) {
     setState('nothing');
     console.error(error);
