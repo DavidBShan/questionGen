@@ -5,7 +5,7 @@ export const handleFileUpload = async (file: File | null, setState: (state: stri
   if (!file) return;
   setState('loading');
   console.log(userId);
-  //handleDailyStreak(userId, setDailyStreak);
+  handleDailyStreak(userId, setDailyStreak);
   const formData = new FormData();
   formData.append('pdf', file);
 

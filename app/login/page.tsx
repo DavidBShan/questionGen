@@ -3,7 +3,7 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/config';
 
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useEffect, useState } from "react";
 

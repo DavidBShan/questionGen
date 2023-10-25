@@ -1,5 +1,5 @@
 import React from 'react';
-// import UserMenu from './authentification/UserMenu';
+import UserMenu from './authentification/UserMenu';
 import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
@@ -21,7 +21,7 @@ const Navbar = () => {
             className="w-full rounded-xl bg-aceflow-blue p-1 text-sm font-medium text-white hover:bg-blue-600 md:p-3 md:px-5 md:text-lg">
             Try Aceflow Pro+
             </button>
-            {/* <UserMenu/> */}
+            <UserMenu/>
         </div>
 
         
