@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useGlobalContext } from '../Context/store';
 import ChatWidget from "../components/ChatWidget";
 import Image from "next/image";
+import { timeQuiz } from "../components/Checkbox";
+import StopwatchComponent, { timeTaken } from "../components/Stopwatch";
 
 const useQuizPage: React.FC = () => {
   const router = useRouter();
@@ -13,6 +15,9 @@ const useQuizPage: React.FC = () => {
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [correctState, setCorrectState] = useState("nothing");
+
+  const timedQuiz = timeQuiz;
+
   console.log(data);
   const handleOptionSelect = (option: string) => {
     if (correctState === "nothing") {
@@ -20,7 +25,7 @@ const useQuizPage: React.FC = () => {
     } 
   };
   const [chatOpen, setChatOpen] = useState(false);
-
+  
   const handleNextQuestion = () => {
 
     if (correctState === "nothing") {
@@ -52,6 +57,9 @@ const useQuizPage: React.FC = () => {
              Your score: <span className="font-semibold text-green-400">{score}</span> out of{" "}
              <span className="font-semibold text-blue-400">{data.length}</span>
            </p>
+           {(timedQuiz ?
+          <div className="text-lg font-semibold md:text-2xl">Time taken {timeTaken.toString()}</div>
+          : null)}
          </div>
        
          <div className="mx-7 text-center md:mx-0 md:mt-20">
@@ -80,6 +88,11 @@ const useQuizPage: React.FC = () => {
         ) : (
           <div className="grid items-center justify-center gap-8 md:gap-14">
             
+         {(timedQuiz ?
+          <div className="pb-20 md:pb-0"><StopwatchComponent/>
+          </div>
+          : null)}
+
             <div className="space-y-10 md:space-y-20">
               <div className="mt-8">
                 <h1 className="text-center text-xl font-bold md:text-3xl">Quiz</h1>

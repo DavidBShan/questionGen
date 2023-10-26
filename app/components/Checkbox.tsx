@@ -3,14 +3,25 @@ import React, { InputHTMLAttributes, useState } from 'react';
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   setProPrompt: (value: boolean) => void;
+  membership: string;
 }
 
-const Checkbox: React.FC<CheckboxProps> = ({ label, setProPrompt, ...props }) => {
+export let timeQuiz = false;
+
+const Checkbox: React.FC<CheckboxProps> = ({ label, setProPrompt, membership,...props }) => {
+
   const [isChecked, setIsChecked] = useState(false);
 
   const handleClick = () => {
-    setIsChecked(false);
-    setProPrompt(!isChecked); // Toggle the value and set it using setProPrompt
+
+    if(membership!== "free") {
+      setIsChecked(false);
+      setProPrompt(!isChecked); // Toggle the value and set it using setProPrompt
+      return;
+    }
+
+    timeQuiz = !isChecked;
+    setIsChecked(timeQuiz);
   };
 
   return (

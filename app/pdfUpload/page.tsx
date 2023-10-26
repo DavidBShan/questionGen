@@ -177,6 +177,9 @@ const useHome: React.FC = () => {
                 <ProPrompt setProPrompt={setProPrompt}/>
               </>}
 
+              <span className='text-xl font-medium'>Customize your quiz: </span>
+              <div className='flex flex-col items-center justify-center'> <Checkbox label="Timed Quiz" setProPrompt={setProPrompt} membership={membershipType}/></div>
+
               <button
                 onClick={() => {
                   router.push(`/quiz`);
