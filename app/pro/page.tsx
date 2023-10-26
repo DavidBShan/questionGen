@@ -1,13 +1,33 @@
 'use client';
 import { useRouter } from "next/navigation";
+import { useRouter as onlineRouter } from "next/router";
 import BigButton from "../components/Button";
 import Image from "next/image";
 import { FaCheck } from 'react-icons/fa';
 
+import { loadStripe } from "@stripe/stripe-js";
+import axios from 'axios';
+import { useState } from "react";
+
 export default function Home() {
 
 const router = useRouter();
+//This is how stripe is handled so far
+const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string;
+const stripePromise = loadStripe(publishableKey);
 
+const createCheckOutSession = async () => {
+    const stripe = await stripePromise;
+    const checkoutSession = await axios.post('/api/create-stripe-session');
+    const result = await stripe?.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+    console.log(result);
+    if (result?.error) {
+      alert(result.error.message);
+    }
+  };
+//-------------------------------------
 return (
     <div className="mx-6 grid h-fit items-center justify-center gap-8 pt-16">
 
@@ -66,7 +86,7 @@ return (
                         $11.99/mo
                         </div>
                         <button
-                            onClick={()=>{}}
+                            onClick={createCheckOutSession}
                             className="mt-4 w-[70%] rounded-xl bg-aceflow-blue px-1 
                             py-3
                             text-xl 
