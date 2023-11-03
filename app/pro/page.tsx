@@ -4,17 +4,28 @@ import { useRouter as onlineRouter } from "next/router";
 import BigButton from "../components/Button";
 import Image from "next/image";
 import { FaCheck } from 'react-icons/fa';
-
+import { useSession } from 'next-auth/react';
 import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { handlePayment } from "@/util/handlePayment";
 
 export default function Home() {
 
 const router = useRouter();
+const { data: session } = useSession();
+const [userId, setUserId] = useState<any>(session?.user);
 //This is how stripe is handled so far
 const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string;
 const stripePromise = loadStripe(publishableKey);
+
+useEffect(() => {
+
+    if (session?.user !== undefined) {
+      setUserId(session?.user);
+    }
+
+  }, [userId, session]);
 
 const createCheckOutSession = async () => {
     const stripe = await stripePromise;
@@ -25,6 +36,9 @@ const createCheckOutSession = async () => {
     console.log(result);
     if (result?.error) {
       alert(result.error.message);
+    }else{
+        console.log("success");
+        handlePayment(userId);
     }
   };
 //-------------------------------------
@@ -101,13 +115,6 @@ return (
                 </div>
             </div>
         </div>
-
-        <button className="mb-12 font-light text-gray-500 md:absolute md:bottom-0 md:left-0 md:m-6 md:text-lg"
-                onClick={() => {
-                    router.push(`/`);
-                  }}>
-            Go Home
-        </button>
     </div>
   )
 }

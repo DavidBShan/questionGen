@@ -13,7 +13,9 @@ interface ContextProps {
   messages: { role: string; id: number; content: string }[];
   setMessages: Dispatch<SetStateAction<{ role: string; id: number; content: string }[]>>;
   pdfText: string;
-  setPdfText: Dispatch<SetStateAction<string>>; // Add setPdfText to update pdfText
+  setPdfText: Dispatch<SetStateAction<string>>; 
+  userEmail: string;
+  setUserEmail: Dispatch<SetStateAction<string>>; 
 }
 
 const GlobalContext = createContext<ContextProps>({
@@ -22,7 +24,9 @@ const GlobalContext = createContext<ContextProps>({
   messages: [{ role: 'system', id: 1, content: 'Hi there, how can I help you?' }],
   setMessages: (): { role: 'system'; id: 1; content: 'Hi there, how can I help you?' }[] => [],
   pdfText: 'use client',
-  setPdfText: (): string => '', // Provide a default implementation
+  setPdfText: (): string => '', 
+  userEmail: '',
+  setUserEmail: (): string => ''
 });
 
 export const GlobalContextProvider = ({ children }: any) => {
@@ -31,9 +35,10 @@ export const GlobalContextProvider = ({ children }: any) => {
     { role: 'system', id: 1, content: 'Hi there, how can I help you?' },
   ]);
   const [pdfText, setPdfText] = useState('use client');
+  const [userEmail, setUserEmail] = useState('');
 
   return (
-    <GlobalContext.Provider value={{ data, setData, messages, setMessages, pdfText, setPdfText }}>
+    <GlobalContext.Provider value={{ data, setData, messages, setMessages, pdfText, setPdfText, userEmail, setUserEmail }}>
       {children}
     </GlobalContext.Provider>
   );

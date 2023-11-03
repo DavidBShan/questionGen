@@ -6,8 +6,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 async function CreateStripeSession(req: any, res: any) {
   const redirectURL =
     process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : 'https://stripe-checkout-next-js-demo.vercel.app';
+      ? 'http://localhost:3000/success'
+      : 'https://stripe-checkout-next-js-demo.vercel.app/success';
 
   
   const session = await stripe.checkout.sessions.create({
