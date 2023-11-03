@@ -61,13 +61,12 @@ const UserMenu = () => {
                     absolute
                     right-0
                     top-12
-                    w-[40vw]
                     overflow-hidden
                     rounded-xl
                     bg-white
                     text-sm
                     shadow-md
-                    md:w-3/4
+                    w-fit
                   "
                   >
                     <div
