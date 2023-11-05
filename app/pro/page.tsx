@@ -38,6 +38,8 @@ const createCheckOutSession = async () => {
       alert(result.error.message);
     }else{
         console.log("success");
+        alert(userId.email);
+        console.log("Making this user pro: ", userId.email);
         handlePayment(userId);
     }
   };
@@ -115,6 +117,13 @@ return (
                 </div>
             </div>
         </div>
+
+        <button className="mb-12 md:absolute md:bottom-0 md:left-0 md:m-6 md:text-lg"
+                onClick={() => {
+                    router.push(`/`);
+                  }}>
+            Go Home
+        </button>
     </div>
   )
 }

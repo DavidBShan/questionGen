@@ -110,7 +110,7 @@ const SignUp: React.FC<SignUpProps> = ({
         </Form>
 
         <CustomButton
-            label="I'm Ready"
+            label="Sign Up"
             disabled={(!email || !password || !passwordAgain) || (password !== passwordAgain)}
             onClick={() => signUp()}
             customBG
