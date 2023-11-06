@@ -11,7 +11,7 @@ export const handleDailyStreak = async (userId: any, setDailyStreak: any) => {
     const now = new Date();
     const lastAccess = userStreak?.lastAccess.toDate();
     const isSameDay = now.getFullYear() === lastAccess.getFullYear() && now.getMonth() === lastAccess.getMonth() && now.getDate() === lastAccess.getDate();
-    
+
     if (!isSameDay || userStreak?.streak == 0) {
         setDailyStreak(userStreak?.streak+1);
         const updatedStreak = {

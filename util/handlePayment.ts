@@ -5,10 +5,17 @@ import { serverTimestamp } from "firebase/firestore/lite";
 export const handlePayment = async (userId: any) => {
     const db = getFirestore(firebase_app);
     const userCol = collection(db, 'users');
-    const updatedUser = {
+
+    const snapshot = await getDocs(userCol);
+    const userData = snapshot.docs.map(doc => doc.data());
+
+    const individualUser = userData.find(membership => membership.uid === userId.email);
+
+     const updatedUser = {
         uid: userId.email,
-        membership: "premium",
-        quizAnswered: 0,
+        membership: "pro",
+        quizzesAnswered: individualUser?.quizzesAnswered,
+        sentMessagesTutor: individualUser?.sentMessagesTutor + 1
     };
     await updateDoc(doc(userCol, userId.email), updatedUser);
 } 

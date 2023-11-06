@@ -1,3 +1,4 @@
+import { handleSentMessagesTutor } from '@/util/users';
 import OpenAI from 'openai';
 export default async (req: any, res: any) => {
   const openai = new OpenAI({
@@ -5,6 +6,7 @@ export default async (req: any, res: any) => {
   });
     if (req.method === 'POST') {
         try {
+          handleSentMessagesTutor(req.body.uid);
           const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo-16k",
             temperature: 1.2,

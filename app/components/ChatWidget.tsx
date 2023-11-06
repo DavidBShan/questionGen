@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '../Context/store';
+import { useSession } from 'next-auth/react';
+import { getSentMessagesTutor } from '@/util/users';
+import { useRouter } from 'next/navigation';
 
-async function callApi(question: any, pdfText: any) {
+async function callApi(question: any, pdfText: any, userId: any) {
   try {
     console.log(pdfText);
     const response = await fetch("/api/answerQuestion", {
@@ -11,7 +14,8 @@ async function callApi(question: any, pdfText: any) {
       },
       body: JSON.stringify({
         question: question,
-        text: pdfText
+        text: pdfText,
+        uid: userId
       }),
     });
 
@@ -27,8 +31,43 @@ async function callApi(question: any, pdfText: any) {
 }
 
 const ChatWidget = () => {
+
+  const router = useRouter();
+
   const [newMessage, setNewMessage] = useState('');
   const { data, setData, messages, setMessages , pdfText, setPdfText} = useGlobalContext();
+  
+  const { data: session } = useSession();
+
+  const [userId, setUserId] = useState<any>(session?.user);
+  const [sentMessagesTutor, SetSentMessagesTutor] = useState(0);
+
+  
+  let iterations = 0;
+
+  useEffect(() => {
+    while (session?.user === undefined && iterations < 10) {
+      new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      });
+      iterations++;
+    }
+  
+    if (session?.user !== undefined) {
+      setUserId(session?.user);
+  
+      console.log(session?.user);
+  
+      getSentMessagesTutor(session?.user, SetSentMessagesTutor);
+    }
+  }, [userId, session, iterations]);
+  
+  // Add another useEffect to log changes in sentMessagesTutor
+  useEffect(() => {
+    console.log("sentMessagesTutor changed:", sentMessagesTutor);
+  }, [sentMessagesTutor]);
   
   const handleInputChange = (e: any) => {
     setNewMessage(e.target.value);
@@ -52,7 +91,7 @@ const ChatWidget = () => {
     setMessages([...messages, newMessageObj, thinkingMessageObj]);
     setNewMessage('');
 
-    const answer = await callApi(newMessage, pdfText);
+    const answer = await callApi(newMessage, pdfText, userId);
 
     const tutorMessageObj = {
       role: "tutor",
@@ -62,12 +101,14 @@ const ChatWidget = () => {
 
     setMessages([...messages, newMessageObj, tutorMessageObj]);
     setNewMessage('');
+    getSentMessagesTutor(session?.user, SetSentMessagesTutor);
   };
 
   return (
 
     <div className="flex h-full flex-col rounded-lg bg-blue-100 p-4">
-      <div className="mb-4 text-center text-xl font-bold md:text-2xl">Chat</div>
+      {(sentMessagesTutor < 21) && <div>
+        <div className="mb-4 text-center text-xl font-bold md:text-2xl">Chat</div>
       
       <div className="no-scrollbar grow overflow-y-auto text-base md:text-lg">
         {messages.map((message) => (
@@ -95,6 +136,31 @@ const ChatWidget = () => {
           Send
         </button>
       </div>
+      </div>
+     }
+
+{(sentMessagesTutor >= 21) && <div>
+  <div className='flex flex-col items-center text-center'>
+          <div className="mb-2 text-md font-bold md:text-lg font-medium">You&apos;re out of free messages</div>
+
+          <div className='mb-4 text-xl font-bold md:text-2xl'>
+            <span className='text-black'>Unlock </span>
+            <span className='text-aceflow-blue'>Aceflow Pro+ </span>
+          </div>
+
+          <button
+            onClick={() => {router.push(`/pro`)}}
+            className="w-[70%] rounded-xl bg-aceflow-blue px-1 
+            py-3
+            text-lg
+            font-bold text-white md:w-[85%] hover:bg-blue-600 md:py-4 md:text-2xl"
+        >
+            Go Unlimited
+        </button>
+      </div>
+      </div>
+     }
+     
     </div>
 
   );

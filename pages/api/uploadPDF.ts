@@ -28,7 +28,7 @@ export default async function handler(req:any, res:any) {
     const form = new formidable.IncomingForm();
     form.parse(req, async (err:any, fields:any, files:any) => {
       if (err) {
-        throw new Error('Form parsing erroer: ' + err.message);
+        throw new Error('Form parsing error: ' + err.message);
       }
       const pdfFile = files.pdf;
       const text = await readPDF(pdfFile[0].filepath);
