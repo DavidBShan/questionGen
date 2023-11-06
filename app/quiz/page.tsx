@@ -7,13 +7,13 @@ import Image from "next/image";
 import { timeQuiz } from "../components/Checkbox";
 import StopwatchComponent, { timeTaken } from "../components/Stopwatch";
 
-import data from '../../uploads/questions.json'
+// import data from '../../uploads/questions.json'
 import { useSession } from "next-auth/react";
 import { getSentMessagesTutor } from "@/util/users";
 
 const useQuizPage: React.FC = () => {
   const router = useRouter();
-  // const {data, setData, messages, setMessages, pdfText, setPdfText} = useGlobalContext();
+  const {data, setData, messages, setMessages, pdfText, setPdfText} = useGlobalContext();
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
