@@ -12,6 +12,7 @@ import SignUp from '../components/authentification/SignUp';
 import SignIn from '../components/authentification/SignIn';
 import ForgotPassword from '../components/authentification/ForgotPassword';
 import Loader from '../components/Loader';
+import toast from 'react-hot-toast';
 
 
 export default function Home() {
@@ -51,21 +52,41 @@ export default function Home() {
   const [displayName, setDisplayName] = useState('');
 
   const signUp = () => {
-    createUserWithEmailAndPassword(auth, email, password);
-    setCurrentPage("SignIn");
+    createUserWithEmailAndPassword(auth, email, password).then((auth) => {
+      // Handle successful authentication
+      toast.success("Account successfully created!");
+      setCurrentPage("SignIn");
+    })
+    .catch((error) => {
+      let authError = error;
+      let errorCode = authError.code;
+      let errorMessage = authError.message;
+
+      console.log(authError);
+      console.log(errorCode);
+      console.log(errorMessage);
+
+      if (errorCode === "auth/weak-password") {
+        toast.error("Password should be at least 6 characters.");
+      } else if (errorCode === "auth/email-already-in-use"){
+        toast.error("This email is already in use.");
+      } else {
+        toast.error(errorMessage);
+      }
+    });
   };
 
   //---------------------------------------------------Returning the component below
   return (
     <div className="h-screen w-screen bg-blue-400 text-white">
-      <div className="px-10 py-40 md:w-[35%]">
-        <h3 className="px-1 text-center text-lg md:text-left md:text-xl lg:text-2xl">Welcome to Aceflow.</h3>
-        <h1 className="text-center text-xl font-semibold md:text-left md:text-3xl lg:text-5xl">
+      <div className="px-4 md:px-10 py-40 md:w-[35%]">
+        <h3 className="px-1 text-center text-xl md:text-left md:text-xl lg:text-2xl">Welcome to Aceflow.</h3>
+        <h1 className="text-center text-2xl font-semibold md:text-left md:text-3xl lg:text-4xl">
           Accelerate your learning, and unlock a new future.
         </h1>
       </div>
 
-      <div className="grid h-[75%] items-center justify-center rounded-t-[50px]
+      <div className="grid h-[60%] items-center justify-center rounded-t-[50px]
             bg-white text-black 
             md:absolute 
             md:inset-y-0 
@@ -75,7 +96,7 @@ export default function Home() {
             md:rounded-l-[50px]  
             md:rounded-tr-[0px]">
         
-        <div className="h-2 pb-0 text-center text-xl font-bold md:px-[15%] md:text-4xl lg:text-6xl">
+        <div className="py-4 text-center text-xl font-bold md:px-[20%] md:text-5xl lg:text-6xl">
           Your next journey starts here.
         </div>
 
@@ -132,6 +153,7 @@ export default function Home() {
               </div>   ) : null }
           </div>
         )}
+
       </div>
     </div>
   );

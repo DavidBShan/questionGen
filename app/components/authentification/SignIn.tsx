@@ -71,7 +71,7 @@ const SignIn: React.FC<SignInProps> = ({
   }
 
   return ( 
-    <div className="grid w-full space-y-4 px-60">
+    <div className="grid w-full space-y-4 md:px-20">
         <div className="grid content-start justify-center">
             <button
             className="flex w-60 items-center gap-4
