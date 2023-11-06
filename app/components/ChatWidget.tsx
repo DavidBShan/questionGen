@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '../Context/store';
 import { useSession } from 'next-auth/react';
-import { getSentMessagesTutor } from '@/util/users';
+import { getMembershipType, getSentMessagesTutor } from '@/util/users';
 import { useRouter } from 'next/navigation';
 
 async function callApi(question: any, pdfText: any, userId: any) {
@@ -41,7 +41,7 @@ const ChatWidget = () => {
 
   const [userId, setUserId] = useState<any>(session?.user);
   const [sentMessagesTutor, SetSentMessagesTutor] = useState(0);
-
+  const [membershipType, setMembershipType] = useState("");
   
   let iterations = 0;
 
@@ -59,7 +59,7 @@ const ChatWidget = () => {
       setUserId(session?.user);
   
       console.log(session?.user);
-  
+      getMembershipType(session?.user, setMembershipType);
       getSentMessagesTutor(session?.user, SetSentMessagesTutor);
     }
   }, [userId, session, iterations]);
@@ -107,7 +107,7 @@ const ChatWidget = () => {
   return (
 
     <div className="flex h-full flex-col rounded-lg bg-blue-100 p-4">
-      {(sentMessagesTutor < 21) && <div>
+      {(sentMessagesTutor < 21 || membershipType==="pro") && <div>
         <div className="mb-4 text-center text-xl font-bold md:text-2xl">Chat</div>
       
       <div className="no-scrollbar grow overflow-y-auto text-base md:text-lg">
@@ -139,7 +139,7 @@ const ChatWidget = () => {
       </div>
      }
 
-{(sentMessagesTutor >= 21) && <div>
+{(sentMessagesTutor >= 21 && membershipType==="free") && <div>
   <div className='flex flex-col items-center text-center'>
           <div className="mb-2 text-md font-bold md:text-lg font-medium">You&apos;re out of free messages</div>
 
