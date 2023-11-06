@@ -4,6 +4,8 @@ import { useSession } from 'next-auth/react';
 import { getMembershipType, getSentMessagesTutor } from '@/util/users';
 import { useRouter } from 'next/navigation';
 
+let messageCounter = 100; // Counter for generating unique message IDs
+
 async function callApi(question: any, pdfText: any, userId: any) {
   try {
     console.log(pdfText);
@@ -76,16 +78,19 @@ const ChatWidget = () => {
   const handleSendMessage = async () => {
     if (newMessage.trim() === '') return;
 
+    // Increment the counter for each message
+    messageCounter++;
+
     const newMessageObj = {
-      role: "user",
+      role: 'user',
       content: newMessage,
-      id: messages.length + 1,
+      id: messageCounter,
     };
 
     const thinkingMessageObj = {
-      role: "tutor",
-      content: "AI Tutor is thinking...",
-      id: messages.length + 2,
+      role: 'tutor',
+      content: 'AI Tutor is thinking...',
+      id: messageCounter + 1,
     };
 
     setMessages([...messages, newMessageObj, thinkingMessageObj]);
@@ -93,10 +98,13 @@ const ChatWidget = () => {
 
     const answer = await callApi(newMessage, pdfText, userId);
 
+    // Increment the counter again for the tutor message
+    messageCounter++;
+
     const tutorMessageObj = {
-      role: "tutor",
+      role: 'tutor',
       content: answer,
-      id: messages.length + 3, // Ensure a unique ID
+      id: messageCounter,
     };
 
     setMessages([...messages, newMessageObj, tutorMessageObj]);
