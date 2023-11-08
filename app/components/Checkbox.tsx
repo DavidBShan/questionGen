@@ -14,7 +14,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ label, setProPrompt, membership,...
 
   const handleClick = () => {
 
-    if(membership!== "free") {
+    if(membership!== "pro") {
       setIsChecked(false);
       setProPrompt(!isChecked); // Toggle the value and set it using setProPrompt
       return;

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { timeQuiz } from "../components/Checkbox";
 import StopwatchComponent, { timeTaken } from "../components/Stopwatch";
 
-// import data from '../../uploads/questions.json'
+import data from '../../uploads/questions.json'
 import { useSession } from "next-auth/react";
 import { getSentMessagesTutor } from "@/util/users";
 
@@ -51,7 +51,10 @@ const useQuizPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center md:flex-row">
+
+   <div>
+     {data && data[currentQuestion] ? (
+      <div className="flex h-screen flex-col items-center justify-center md:flex-row">
       <div className="no-scrollbar w-full md:overflow-y-auto">
         {quizCompleted ? (
          <div className="mx-auto flex h-fit max-w-screen-sm flex-col items-center justify-center gap-8">
@@ -127,6 +130,7 @@ const useQuizPage: React.FC = () => {
                         ${correctState === "nothing" && selectedOption === option ? "bg-blue-200" : ""}
                         ${correctState === "correct" && selectedOption === option ? "bg-green-100 outline-green-600" : ""}
                         ${correctState === "incorrect" && selectedOption === option ? "bg-red-100 outline-red-600" : ""}
+                        ${correctState === "incorrect" && data[currentQuestion].correctAnswer === option ? "bg-green-100 outline-green-600" : ""}
                         `}
                     >
                       <span className="mr-2">{String.fromCharCode(65 + index)}.</span>{option}
@@ -170,6 +174,20 @@ const useQuizPage: React.FC = () => {
         <ChatWidget />
       </div>}
     </div>
+    ) : (
+      <div className="flex flex-col text-center items-center justify-center h-screen">
+      <h1 className="text-4xl font-bold mb-4">Whoops!</h1>
+      <p className="text-lg text-gray-700 mb-8">It seems your questions haven't been loaded. Make sure to not refresh while taking your quiz!</p>
+      <button
+        onClick={() => router.push('/')}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+      >
+        Go back to the homepage
+      </button>
+    </div>
+    )}
+   </div>
+    
   );
 };
 

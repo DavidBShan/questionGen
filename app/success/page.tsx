@@ -18,7 +18,7 @@ const Success = () => {
   }, [userId]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen text-center">
       <h1 className="text-4xl font-bold mb-4">Payment Successful</h1>
       <p className="text-lg text-gray-700 mb-8">Your payment was processed successfully!</p>
       <button

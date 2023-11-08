@@ -15,7 +15,7 @@ export const handlePayment = async (userId: any) => {
         uid: userId.email,
         membership: "pro",
         quizzesAnswered: individualUser?.quizzesAnswered,
-        sentMessagesTutor: individualUser?.sentMessagesTutor + 1
+        sentMessagesTutor: individualUser?.sentMessagesTutor
     };
     await updateDoc(doc(userCol, userId.email), updatedUser);
 } 

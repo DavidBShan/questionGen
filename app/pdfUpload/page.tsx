@@ -20,7 +20,7 @@ const useHome: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   // const [dailyStreak, setDailyStreak] = useState(0);
 
-  const [currentState, setState] = useState('nothing');
+  const [currentState, setState] = useState('hello');
   const [feedback, setFeedback] = useState('');
   const { data: session } = useSession();
   const [proPrompt, setProPrompt] = useState(false);
