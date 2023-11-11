@@ -43,8 +43,9 @@ export const generateQuestions = async (pdfContent: any) => {
               }
   
       return responseJSON;
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      console.log(err?.message);
       alert("Oops! We ran into an issue trying to generate questions. Try again please!");
       return questionResponse; // Return an empty array or handle the error accordingly.
     }

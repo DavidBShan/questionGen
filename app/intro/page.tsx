@@ -3,10 +3,21 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 import Navbar from '../components/Navbar';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { useState } from 'react';
 
 export default function Home() {
 
 const router = useRouter();
+const { data: session } = useSession();
+const [userId, setUserId] = useState<any>(session?.user);
+
+// useEffect(() => {
+//     // Check if the user is authenticated
+//     if (session?.user) {
+//       router.push("/pdfUpload");
+//     }
+//   }, [session]);
 
 return (
     <div>
@@ -33,7 +44,7 @@ return (
             </div>
 
             <button className="rounded-xl bg-aceflow-blue px-5 py-3 text-xl font-bold text-white hover:bg-blue-600 md:w-[60%] md:text-3xl lg:w-[40%]"
-             onClick={()=>{router.push(`/login`)}}
+             onClick={()=>{router.push((userId !== null) ? `/pdfUpload` : `/login`)}}
             >
                 Start Learning
             </button>
