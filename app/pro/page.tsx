@@ -9,6 +9,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import { handlePayment } from "@/util/handlePayment";
+import { getCheckoutUrl } from "@/util/stripePayment";
+import { firebase_app } from "../firebase/config";
 
 export default function Home() {
 
@@ -27,6 +29,13 @@ useEffect(() => {
 
   }, [userId, session]);
 
+  const upgradeToPremium = async () => {
+    const priceId = process.env.NEXT_PUBLIC_PRICE_ID;
+    const checkoutUrl = await getCheckoutUrl(firebase_app, priceId as string);
+    router.push(checkoutUrl);
+    console.log("Upgrade to Premium");
+  };
+
 const createCheckOutSession = async () => {
     const stripe = await stripePromise;
     const checkoutSession = await axios.post('/api/create-stripe-session');
@@ -39,7 +48,7 @@ const createCheckOutSession = async () => {
     }else{
         console.log("success");
         alert(userId.email);
-        console.log("Making this user pro: ", userId.email);
+        console.log("Making this user pro: ", userId.uid);
         handlePayment(userId);
     }
   };
@@ -102,7 +111,7 @@ return (
                         $11.99/mo
                         </div>
                         <button
-                            onClick={createCheckOutSession}
+                            onClick={upgradeToPremium}
                             className="mt-4 w-[70%] rounded-xl bg-aceflow-blue px-1 
                             py-3
                             text-xl 

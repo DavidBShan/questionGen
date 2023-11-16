@@ -3,19 +3,43 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import React, { useState, useEffect } from 'react';
 import { handlePayment } from '@/util/handlePayment';
+import { getPremiumStatus } from '@/util/getPremiumStatus';
+import { firebase_app } from '../firebase/config';
+import { getAuth } from 'firebase/auth';
 
 const Success = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const [proPrompt, setProPrompt] = useState(false);
-  const [userId, setUserId] = useState<any>(session?.user);
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const uid = urlSearchParams.get('uid');
+  const userId = urlSearchParams.get('email');
+
   useEffect(() => {
-    if (session?.user !== undefined) {
-      setUserId(session?.user);
-      console.log(session?.user);
-      handlePayment(userId);
-    }
-  }, [userId]);
+    const auth = getAuth(firebase_app);
+  
+    const checkAuth = async () => {
+
+      console.log(auth.currentUser);
+      console.log(uid);
+      console.log(userId);
+
+    
+      const checkPremium = async () => {
+        if (uid !== undefined) {
+          console.log(uid);
+          const newPremiumStatus = await getPremiumStatus(firebase_app, uid as string);
+          newPremiumStatus ? handlePayment(userId) : null;
+        }
+      }
+  
+      await checkPremium();
+    };
+  
+    checkAuth();
+  }, );
+  
 
   return (
     <div className="flex flex-col items-center justify-center h-screen text-center">

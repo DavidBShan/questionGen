@@ -55,15 +55,15 @@ const useHome: React.FC = () => {
 
       setUserId(session?.user);
 
-      console.log(session?.user);
+      // console.log(session?.user);
 
       getDailyStreak(session?.user, setDailyStreak);
       getMembershipType(session?.user, setMembershipType);
       getQuizzesAnswered(session?.user, setQuizzesAnswered);
 
-      console.log(membershipType);
-      console.log(quizzesAnswered);
-      console.log(dailyStreak);
+      // console.log(membershipType);
+      // console.log(quizzesAnswered);
+      // console.log(dailyStreak);
     }
 
   }, [userId, dailyStreak, membershipType, quizzesAnswered, session, iterations]);

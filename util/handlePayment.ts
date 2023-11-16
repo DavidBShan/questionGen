@@ -9,13 +9,13 @@ export const handlePayment = async (userId: any) => {
     const snapshot = await getDocs(userCol);
     const userData = snapshot.docs.map(doc => doc.data());
 
-    const individualUser = userData.find(membership => membership.uid === userId.email);
+    const individualUser = userData.find(membership => membership.uid === userId);
 
      const updatedUser = {
-        uid: userId.email,
+        uid: userId,
         membership: "pro",
         quizzesAnswered: individualUser?.quizzesAnswered,
         sentMessagesTutor: individualUser?.sentMessagesTutor
     };
-    await updateDoc(doc(userCol, userId.email), updatedUser);
+    await updateDoc(doc(userCol, userId), updatedUser);
 } 
